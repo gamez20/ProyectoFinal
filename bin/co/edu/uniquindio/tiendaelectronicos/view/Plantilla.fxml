@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane focusTraversable="true" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #DAF7A6;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane blendMode="SOFT_LIGHT" layoutY="33.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="568.0" prefWidth="503.0" rotateGraphic="true" style="-fx-background-color: #6200EE1F;" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab style="-fx-background-color: #A2B448;" text="Crear Cliente">
+            <content>
+              <AnchorPane focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <effect>
+                        <Glow level="0.57" />
+                     </effect></AnchorPane>
+            </content>
+          </Tab>
+          <Tab style="-fx-background-color: #A2B448;" text="Crear Producto">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+            <Tab style="-fx-background-color: #A2B448;" text="Transacción de venta">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <effect>
+                        <DropShadow />
+                     </effect></AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+         <effect>
+            <SepiaTone />
+         </effect>
+      </TabPane>
+      <Label layoutX="127.0" layoutY="7.0" text="Tienda de Productos Electrónicos" textAlignment="CENTER">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+   </children>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+</AnchorPane>
