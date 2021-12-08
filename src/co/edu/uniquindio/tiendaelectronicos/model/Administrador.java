@@ -24,6 +24,5 @@ public class Administrador  extends Persona{
 	public String toString() {
 		return "estudios=" + estudios + ", getEstudios()=" + getEstudios() + super.toString() + "]";
 	}
-	
 
 }
