@@ -2,6 +2,9 @@ package co.edu.uniquindio.tiendaelectronicos;
 
 import java.io.IOException;
 
+import co.edu.uniquindio.tiendaelectronicos.controller.TiendaElectronicaController;
+import co.edu.uniquindio.tiendaelectronicos.model.Administrador;
+import co.edu.uniquindio.tiendaelectronicos.model.TiendaElectronica;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,7 +14,9 @@ import javafx.stage.Stage;
 public class Aplicacion extends Application {
 
 	private Stage primaryStage;
-
+	Administrador administradorNacional = new Administrador(123, "Juan", "slakjfalkjdf", "sldkfjslkfj", "sldfkslkfjd","dddff");
+	TiendaElectronica miTienda = new TiendaElectronica(administradorNacional);
+	
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -25,6 +30,10 @@ public class Aplicacion extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Aplicacion.class.getResource("view/Plantilla.fxml"));
 			AnchorPane rootLayout = (AnchorPane)loader.load();
+			
+			TiendaElectronicaController tiendaElectronica = loader.getController();
+			tiendaElectronica.setAplicacion(this);
+			
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();

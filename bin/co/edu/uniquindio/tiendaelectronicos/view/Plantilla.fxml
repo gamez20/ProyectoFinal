@@ -8,47 +8,48 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane focusTraversable="true" prefHeight="600.0" prefWidth="680.0" style="-fx-background-color: #DAF7A6;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane focusTraversable="true" prefHeight="611.0" prefWidth="680.0" style="-fx-background-color: #DAF7A6;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.tiendaelectronicos.controller.TiendaElectronicaController">
    <children>
       <TabPane blendMode="SOFT_LIGHT" layoutY="26.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="575.0" prefWidth="680.0" rotateGraphic="true" style="-fx-background-color: #6200EE1F;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab style="-fx-background-color: #A2B448;" text="Crear Cliente">
                <content>
-                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="540.0" prefWidth="680.0">
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="173.0" prefWidth="332.0">
                            <children>
-                              <Label layoutX="14.0" layoutY="45.0" prefHeight="17.0" prefWidth="76.0" text="Nombre:" />
-                              <Label layoutX="325.0" layoutY="45.0" prefHeight="17.0" prefWidth="76.0" text="Direccion:" />
-                              <Label layoutX="14.0" layoutY="85.0" prefHeight="17.0" prefWidth="116.0" text="Correo Electronico:" />
-                              <Label layoutX="14.0" layoutY="127.0" prefHeight="17.0" prefWidth="124.0" text="Fecha de nacimiento:" />
-                              <TextField id="nombreCliente" layoutX="76.0" layoutY="41.0" prefHeight="25.0" prefWidth="234.0" />
-                              <TextField id="direccionCliente" layoutX="385.0" layoutY="41.0" prefHeight="25.0" prefWidth="281.0" />
-                              <TextField id="correoCliente" layoutX="131.0" layoutY="81.0" prefHeight="25.0" prefWidth="537.0" />
-                              <TextField id="fechaNacimientoCliente" layoutX="134.0" layoutY="123.0" prefHeight="25.0" prefWidth="534.0" />
-                              <Label layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="475.0" text="Detalle Cliente">
+                              <Label layoutX="14.0" layoutY="79.0" prefHeight="17.0" prefWidth="76.0" text="Nombre:" />
+                              <Label layoutX="347.0" layoutY="79.0" prefHeight="17.0" prefWidth="57.0" text="Direccion:" />
+                              <Label layoutX="14.0" layoutY="114.0" prefHeight="17.0" prefWidth="116.0" text="Correo Electronico:" />
+                              <Label layoutX="10.0" layoutY="148.0" prefHeight="17.0" prefWidth="124.0" text="Fecha de nacimiento:" />
+                              <TextField id="nombreCliente" fx:id="inputClienteNombre" layoutX="129.0" layoutY="75.0" prefHeight="25.0" prefWidth="213.0" />
+                              <TextField id="direccionCliente" fx:id="inputClienteDireccion" layoutX="404.0" layoutY="75.0" prefHeight="25.0" prefWidth="233.0" />
+                              <TextField id="correoCliente" fx:id="inputClienteEmail" layoutX="130.0" layoutY="110.0" prefHeight="25.0" prefWidth="508.0" />
+                              <TextField id="fechaNacimientoCliente" fx:id="inputClienteFechaNac" layoutX="129.0" layoutY="144.0" prefHeight="25.0" prefWidth="508.0" />
+                              <Label layoutX="15.0" layoutY="4.0" prefHeight="17.0" prefWidth="475.0" text="Detalle Cliente">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Button id="crearCliente" layoutX="168.0" layoutY="229.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="CREAR" />
-                              <Button id="actualizarCliente" layoutX="320.0" layoutY="229.0" mnemonicParsing="false" text="ACTUALIZAR" />
-                              <Button id="eliminarCliente" layoutX="489.0" layoutY="229.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="ELIMINAR" />
-                              <Label layoutX="14.0" layoutY="164.0" text="Departamento:" />
-                              <TextField id="departamentoCliente" layoutX="103.0" layoutY="160.0" prefHeight="25.0" prefWidth="209.0" />
-                              <Label layoutX="326.0" layoutY="164.0" text="Ciudad:" />
-                              <TextField id="ciudadCliente" layoutX="385.0" layoutY="160.0" prefHeight="25.0" prefWidth="282.0" />
+                              <Button id="crearCliente" fx:id="btnClienteCrear" layoutX="211.0" layoutY="229.0" mnemonicParsing="false" onAction="#eventClienteCrear" prefHeight="25.0" prefWidth="84.0" text="CREAR" />
+                              <Button id="actualizarCliente" fx:id="btnClienteActualizar" layoutX="448.0" layoutY="229.0" mnemonicParsing="false" onAction="#eventClienteActualizar" text="ACTUALIZAR" />
+                              <Label layoutX="12.0" layoutY="185.0" text="Departamento:" />
+                              <TextField id="departamentoCliente" fx:id="inputClienteDepartamento" layoutX="130.0" layoutY="181.0" prefHeight="25.0" prefWidth="220.0" />
+                              <Label layoutX="355.0" layoutY="185.0" text="Ciudad:" />
+                              <TextField id="ciudadCliente" fx:id="inputClienteCiudad" layoutX="404.0" layoutY="181.0" prefHeight="25.0" prefWidth="237.0" />
+                              <TextField id="correoCliente" fx:id="inputClienteDocumento" layoutX="129.0" layoutY="39.0" prefHeight="25.0" prefWidth="508.0" />
+                              <Label layoutX="14.0" layoutY="43.0" prefHeight="17.0" prefWidth="76.0" text="Documento:" />
                            </children>
                         </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="380.0" prefWidth="680.0">
                            <children>
-                              <TableView layoutX="5.0" layoutY="37.0" prefHeight="215.0" prefWidth="664.0">
+                              <TableView fx:id="tableClientelistacliente" layoutX="5.0" layoutY="37.0" prefHeight="200.0" prefWidth="664.0">
                                 <columns>
-                                  <TableColumn id="nombreTableCliente" prefWidth="138.0" text="Nombre" />
-                                  <TableColumn id="direccionTableCliente" prefWidth="133.0" text="Direccion" />
-                                    <TableColumn id="correoTableCliente" prefWidth="144.0" text="Correo Electronico" />
-                                    <TableColumn id="fechaNacimientoTableCliente" prefWidth="133.0" text="Fecha de nacimiento" />
-                                    <TableColumn id="ciudadTableCliente" prefWidth="115.0" text="Ciudad" />
+                                  <TableColumn id="nombreTableCliente" fx:id="columNombre" prefWidth="138.0" text="Nombre" />
+                                  <TableColumn id="direccionTableCliente" fx:id="columDireccion" prefWidth="133.0" text="Direccion" />
+                                    <TableColumn id="correoTableCliente" fx:id="columCorreo" prefWidth="144.0" text="Correo Electronico" />
+                                    <TableColumn id="fechaNacimientoTableCliente" fx:id="columFechaNac" prefWidth="133.0" text="Fecha de nacimiento" />
+                                    <TableColumn id="ciudadTableCliente" fx:id="columCiudad" prefWidth="115.0" text="Ciudad" />
                                 </columns>
                               </TableView>
                               <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="475.0" text="Lista de clientes">
@@ -56,6 +57,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
+                              <Button id="eliminarCliente" fx:id="btnClienteEliminar" layoutX="288.0" layoutY="244.0" mnemonicParsing="false" onAction="#eventClienteEliiminar" prefHeight="25.0" prefWidth="84.0" text="ELIMINAR" />
                            </children></AnchorPane>
                     </items>
                   </SplitPane>
