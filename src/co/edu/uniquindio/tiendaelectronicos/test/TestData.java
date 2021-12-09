@@ -25,15 +25,15 @@ public class TestData {
 		ObservableList<Venta> listCompras = FXCollections.observableArrayList();
 		
 		//Administradores
-		Administrador admin = new Administrador(001, "Julian", "Armenia", "19-04-2001", "sisas@gmail.com", "Administrador de empresas");
+		Administrador admin = new Administrador("001", "Julian", "Armenia", "19-04-2001", "sisas@gmail.com", "Administrador de empresas");
 		listAdmin.add(admin);
 		tienda.setListAdministrador(listAdmin);
 		
 		//Clientes
-		Cliente cliente = new Cliente(001, "Juan", "Armenia", "19-04-2021", "siAbueno@gmail.com", "Armenia", "Quindio");
+		Cliente cliente = new Cliente("001", "Juan", "Armenia", "19-04-2021", "siAbueno@gmail.com", "Armenia", "Quindio");
 		listCliente.add(cliente);
 		
-		cliente = new Cliente(002, "Jose", "Armenia", "28-04-2021", "siAbueno123@gmail.com", "Armenia", "Quindio");
+		cliente = new Cliente("002", "Jose", "Armenia", "28-04-2021", "siAbueno123@gmail.com", "Armenia", "Quindio");
 		listCliente.add(cliente);
 		
 		tienda.setListClientes(listCliente);

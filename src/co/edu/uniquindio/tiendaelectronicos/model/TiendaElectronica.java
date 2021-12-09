@@ -1,6 +1,8 @@
 package co.edu.uniquindio.tiendaelectronicos.model;
 
 
+import co.edu.uniquindio.tiendaelectronicos.test.ListaClienteData;
+import co.edu.uniquindio.tiendaelectronicos.test.TestData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -14,13 +16,24 @@ public class TiendaElectronica {
 	private Administrador administradorNacional;
 	
 	
+	
+	
 	public TiendaElectronica(Administrador administradorNacional) {
+		//data
 		this.administradorNacional = administradorNacional;
 		listClientes = FXCollections.observableArrayList();
 		listProductos = FXCollections.observableArrayList();
 		listSedes = FXCollections.observableArrayList();
 		listCiudades = FXCollections.observableArrayList();
 		listAdministrador = FXCollections.observableArrayList();
+		
+	
+		Cliente cliente;
+		cliente=new Cliente("1233","santiago","skdflsk","200/15/10","gamez.guerr@sdkf","Armenia","sdlkfj");
+		listClientes.add(cliente);
+		
+		cliente=new Cliente("222","maria","ss","200/15/10","gamez.guerr@sdkf","Armenia","sdlkfj");
+		listClientes.add(cliente);
 	}
 	
 	public ObservableList<Cliente> getListClientes() {

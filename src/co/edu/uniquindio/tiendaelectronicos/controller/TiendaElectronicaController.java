@@ -167,13 +167,15 @@ public class TiendaElectronicaController {
 	    		
 	    		cliente= aplicacion.crearCliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad);
 	    		
-	    		if(cliente !=null){
+	    		if(cliente.getNombre().equalsIgnoreCase(inputClienteNombre.getText()) ){
 	    			clearCamposClientes();
 	    			notificacion("Notificación cliente", "Cliente registrado",
 	    					"Cliente OK", AlertType.INFORMATION);
 	    		}else{
 	    			notificacion("Notificación cliente", "Cliente no registrado",
-	    					"El cliente con docuemnto "+documento+" ya se encuentra registrado", AlertType.INFORMATION);
+	    					"Cliente con docmento"+documento+ " ya esta registrado", AlertType.INFORMATION);
+	    			inputClienteDocumento.clear();
+	    			inputClienteNombre.clear();
 	    		}
 
 			}else {
