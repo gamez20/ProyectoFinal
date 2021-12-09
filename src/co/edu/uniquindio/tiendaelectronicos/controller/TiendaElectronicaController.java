@@ -8,6 +8,7 @@ import co.edu.uniquindio.tiendaelectronicos.model.Cliente;
 import co.edu.uniquindio.tiendaelectronicos.model.Producto;
 import co.edu.uniquindio.tiendaelectronicos.model.Sede;
 import co.edu.uniquindio.tiendaelectronicos.model.TiendaElectronica;
+//import co.edu.uniquindio.tiendaelectronicos.test.ListaClienteData;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -216,19 +217,24 @@ public class TiendaElectronicaController {
     	
     	if (datosValidos(documento,nombre,direccion,correo,fechaNac,departamento,ciudad)==true) {
 
-    		//registrar
-    		Cliente cliente = aplicacion.crearCliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad);
-    		
-    		if(cliente !=null){
-    			clearCampos();
-    			notificacion("Notificación cliente", "Cliente registrado",
-    					"Cliente OK", AlertType.INFORMATION);
-    		}else{
-    			notificacion("Notificación cliente", "Cliente no registrado",
-    					"El cliente con docuemnto "+documento+" ya se encuentra registrado", AlertType.INFORMATION);
-    		}
 
-		}else {
+	    		//registrar
+	    		Cliente cliente = null;
+	    		
+	    		cliente= aplicacion.crearCliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad);
+	    		
+	    		if(cliente.getNombre().equalsIgnoreCase(inputClienteNombre.getText()) ){
+	    			clearCampos();
+	    			notificacion("Notificación cliente", "Cliente registrado",
+	    					"Cliente OK", AlertType.INFORMATION);
+	    		}else{
+	    			notificacion("Notificación cliente", "Cliente no registrado",
+	    					"Cliente con docmento"+documento+ " ya esta registrado", AlertType.INFORMATION);
+	    			inputClienteDocumento.clear();
+	    			inputClienteNombre.clear();
+	    		}
+	    		
+	    	}else {
 			
 			notificacion("Notificación cliente", "Cliente no registrado",
 					"El cliente no se ha logrado registrar", AlertType.ERROR);
@@ -289,13 +295,78 @@ public class TiendaElectronicaController {
 
 	@FXML
     void eventClienteActualizar(ActionEvent event) {
-    	System.out.println("actualizar");
+    	
+		//capturar datos
+		String documento = inputClienteDocumento.getText();
+    	String nombre = inputClienteNombre.getText();
+    	String direccion  = inputClienteDireccion.getText();
+    	String correo = inputClienteEmail.getText();
+    	String fechaNac = inputClienteFechaNac.getText();
+    	String departamento = inputClienteDepartamento.getText();
+    	String ciudad = inputClienteCiudad.getText();
+		
+		boolean clienteActualizado = false;
+		if(cliente !=null ){
+			
+			if(datosValidos(documento, nombre, direccion, correo, fechaNac, departamento, ciudad)){
+				
+				clienteActualizado = aplicacion.actualizarCliente(cliente.getId(), nombre, direccion, correo, fechaNac, departamento, ciudad);
+				
+				if(clienteActualizado == true){
+					tableClientelistacliente.refresh();
+        			notificacion("Notificación cliente", "Cliente actualizado", "El cliente se ha actualizado con éxtio", AlertType.INFORMATION);
+				}
+				else{
+					notificacion("Notificación cliente", "Cliente no actualizado", "El cliente no se puede actualizar", AlertType.ERROR);
+				}
+			}else{
+				notificacion("Notificación cliente", "Cliente no seleccionado", "Debe seleccionar un cliente", AlertType.WARNING);
+			}
+		}
+		
     }	
 
     @FXML
     void eventClienteEliminar(ActionEvent event) {
-    	System.out.println("eliminar");
+
+    	boolean clienteEliminado = false;
+    	
+    	if(cliente !=null ){
+    		
+    		if(notificacionConfirmacion("¿Esta seguro de eliminar el cliente? ") == true){
+    			clienteEliminado= aplicacion.eliminarCliente(cliente.getId());
+        		
+        		if(clienteEliminado == true){
+        			tableClientelistacliente.refresh();
+        			cliente = null;
+        			tableClientelistacliente.getSelectionModel().clearSelection();
+        			notificacion("Notificación cliente", "Cliente Eliminado", "El cliente se ha eliminado con éxtio", AlertType.INFORMATION);
+        		}else{
+        			notificacion("Notificación cliente", "Cliente no eliminado", "El cliente no se puede eliminar", AlertType.ERROR);
+        		}
+    		}
+    		
+    	}else{
+    		notificacion("Notificación cliente", "Cliente no seleccionado", "Debe seleccionar un cliente", AlertType.WARNING);
+		}
     }
+
+	private boolean notificacionConfirmacion(String mensaje) {
+
+	   	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    	alert.setTitle("Confirmación");
+    	alert.setHeaderText(null);
+    	alert.setContentText(mensaje);
+
+    	Optional<ButtonType> action = alert.showAndWait();
+
+    	if(action.get() == ButtonType.OK){
+    		return true;
+    	}else{
+    		return false;
+    	}
+	
+	}
 
 	public void setAplicacion(Aplicacion aplicacion, TiendaElectronica tienda) {
 		this.aplicacion = aplicacion;
@@ -345,7 +416,7 @@ public class TiendaElectronicaController {
     		
     		labelProductoCodigo.setVisible(true);
     		inputProductoCodigo.setVisible(true);
-    		btnProductoCrear.setDisable(true);
+//    		btnProductoCrear.setDisable(true);
     		
     		producto = newSelection;
     		
@@ -447,7 +518,7 @@ public class TiendaElectronicaController {
 				if(aplicacion.actualizarProducto(producto.getCodigo(),codigo,nombre,precio,stock,sede,categoria) !=null){
 	    			
 	    			tableProductolistaProducto.refresh();
-	    			btnProductoCrear.setDisable(false);
+//	    			btnProductoCrear.setDisable(false);
 	    			tableProductolistaProducto.getSelectionModel().select(null);
 	    			clearCampos();
 	    			

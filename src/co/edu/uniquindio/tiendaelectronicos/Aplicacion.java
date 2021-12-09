@@ -66,6 +66,22 @@ public class Aplicacion extends Application {
 		return cliente;
 	}
 
+
+	public boolean actualizarCliente(String documento, String nombre, String direccion, String correo, String fechaNac,
+			String departamento, String ciudad) {
+		
+		boolean clienteActualizado = false;
+		
+		clienteActualizado = miTienda.actualizarCliente(documento, nombre, direccion, correo,fechaNac,departamento,ciudad);
+		
+		
+		return clienteActualizado;
+	}
+
+	public boolean eliminarCliente(String documento) {
+		return miTienda.eliminarCliente(documento);
+	}
+
 	public Producto crearProducto(String nombre, double precio, int stock, String sede, CategoriaProducto categoria) {
 		// TODO Auto-generated method stub
 		return miTienda.crearProducto(nombre,precio,stock,sede,categoria);
@@ -80,6 +96,7 @@ public class Aplicacion extends Application {
 	public boolean eliminarProducto(int codigo) {
 		
 		return miTienda.eliminarProducto(codigo);
+
 	}
 
 	public ObservableList<Sede> obtenerSedes() {

@@ -1,6 +1,7 @@
 package co.edu.uniquindio.tiendaelectronicos.model;
 
 
+import co.edu.uniquindio.tiendaelectronicos.test.TestData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -14,13 +15,24 @@ public class TiendaElectronica {
 	private Administrador administradorNacional;
 	private int idProducto = 1;
 	
+	
+	
 	public TiendaElectronica(Administrador administradorNacional) {
+		//data
 		this.administradorNacional = administradorNacional;
 		listClientes = FXCollections.observableArrayList();
 		listProductos = FXCollections.observableArrayList();
 		listSedes = FXCollections.observableArrayList();
 		listCiudades = FXCollections.observableArrayList();
 		listAdministrador = FXCollections.observableArrayList();
+		
+	
+		Cliente cliente;
+		cliente=new Cliente("1233","santiago","skdflsk","200/15/10","gamez.guerr@sdkf","Armenia","sdlkfj");
+		listClientes.add(cliente);
+		
+		cliente=new Cliente("222","maria","ss","200/15/10","gamez.guerr@sdkf","Armenia","sdlkfj");
+		listClientes.add(cliente);
 	}
 	
 	public ObservableList<Cliente> getListClientes() {
@@ -111,6 +123,42 @@ public class TiendaElectronica {
 		return null;
 	}
 
+
+	public boolean actualizarCliente(String documento, String nombre, String direccion, String correo, String fechaNac,
+			String departamento, String ciudad) {
+		Cliente cliente = null;
+		
+		cliente=obtenerCliente(documento);
+		
+		if (cliente!=null){
+			
+			cliente.setId(documento);
+			cliente.setNombre(nombre);
+			cliente.setDireccion(direccion);
+			cliente.setCorreo(correo);
+			cliente.setFechaNacimiento(fechaNac);
+			cliente.setDepartamento(departamento);
+			cliente.setCiudad(ciudad);
+			return true;
+			
+		}
+		
+		return false;
+	}
+	
+	public boolean eliminarCliente(String documento){
+		
+		Cliente cliente = null;
+		
+		cliente = obtenerCliente(documento);
+		
+		if(cliente !=null){
+			getListClientes().remove(cliente);
+			return true;
+		}
+		return false;
+	}
+
 	public Producto crearProducto(String nombre, double precio, int stock, String sede, CategoriaProducto categoria) {
 		
 		Producto producto = new Producto(idProducto,sede,nombre,precio,categoria,stock);
@@ -148,6 +196,7 @@ public class TiendaElectronica {
 				return true;
 			}
 		}
+
 		return false;
 	}
 	
