@@ -76,7 +76,7 @@ public class TiendaElectronica {
 		
 		boolean valid = true;
 		
-		if (documento == 0 || nombre == null || direccion == null || correo == null || fechaNac == null || departamento == null || ciudad == null) {
+		if (documento == 0 || nombre.equalsIgnoreCase("") || direccion.equalsIgnoreCase("")|| correo.equalsIgnoreCase("") || fechaNac.equalsIgnoreCase("") || departamento.equalsIgnoreCase("") || ciudad.equalsIgnoreCase("")) {
 			valid = false;
 		}
 		
@@ -87,8 +87,9 @@ public class TiendaElectronica {
 			String departamento, String ciudad) {
 		
 		Cliente  cliente = new Cliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad);
-		
 		listClientes.add(cliente);
+		
+		
 	}
 	
 }

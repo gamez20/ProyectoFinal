@@ -6,10 +6,12 @@ import co.edu.uniquindio.tiendaelectronicos.model.TiendaElectronica;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
@@ -99,6 +101,7 @@ public class TiendaElectronicaController {
     void eventClienteCrear(ActionEvent event) {
     	System.out.println("crear");
     	
+    	try{
     	int documento = Integer.parseInt(inputClienteDocumento.getText());
     	String nombre = inputClienteNombre.getText();
     	String direccion  = inputClienteDireccion.getText();
@@ -107,17 +110,35 @@ public class TiendaElectronicaController {
     	String departamento = inputClienteDepartamento.getText();
     	String ciudad = inputClienteCiudad.getText();
     	
-    	if (tienda.validFieldsCliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad)) {
-    		tienda.crearCliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad);
-    		System.out.println("Guardo correctamente");
-		}else {
-			System.out.println("mensaje de error \n algun campo vacio");
+	    	if (tienda.validFieldsCliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad)) {
+	    		System.out.println(inputClienteCiudad.getText());
+	    		tienda.crearCliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad);
+	    		clearCamposClientes();
+	    		notificacion("Exitoso","Guardo correctamente",AlertType.INFORMATION);
+	    		
+			}else {
+				notificacion("Campos Vacios","llenar todos los campos",AlertType.INFORMATION); 
+			}
+    	}catch (Exception e) {
+    		notificacion("Campo Documento","Campo Documento obligatorio",AlertType.ERROR); 
 		}
+
     	
     	
     }
 
-    @FXML
+    private void clearCamposClientes() {
+    	
+    	inputClienteDocumento.clear();
+    	inputClienteNombre.clear();
+    	inputClienteDireccion.clear();
+    	inputClienteEmail.clear();
+    	inputClienteFechaNac.clear();
+    	inputClienteDepartamento.clear();
+    	inputClienteCiudad.clear();
+	}
+
+	@FXML
     void eventClienteActualizar(ActionEvent event) {
     	System.out.println("actualizar");
     }	
@@ -132,6 +153,20 @@ public class TiendaElectronicaController {
 		
 		tableClientelistacliente.getItems().clear();
 		tableClientelistacliente.setItems(tienda.getListClientes());
+	}
+	
+	//Alertas
+	/**
+	 * AlertType.CONFIRMATION   - AlertType.ERROR -  AlertType.INFORMATION - AlertType.WARNING
+	 * @param titulo
+	 * @param contenido
+	 * @param alertType
+	 */
+	public void notificacion(String titulo, String contenido, AlertType alertType) {
+		Alert alerta = new Alert(alertType);
+		alerta.setTitle(titulo);
+		alerta.setContentText(contenido);
+		alerta.showAndWait();
 	}
 
 }
