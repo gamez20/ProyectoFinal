@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -21,6 +22,7 @@ public class TiendaElectronicaController {
 	private ObservableList<Cliente> listClientes;
 	private Cliente cliente;
 
+	// Client
     @FXML
     private TableView<Cliente> tableClientelistacliente;
 
@@ -68,6 +70,51 @@ public class TiendaElectronicaController {
 
     @FXML
     private Button btnClienteCrear;
+    
+    // Producto
+    
+    @FXML
+    private TextField inputProductoNombre;
+    
+    @FXML
+    private TableView<?> tableProductolistaProducto;
+        
+    @FXML
+    private TextField inputProductoPrecio;
+        
+    @FXML
+    private TextField inputProductoStock;
+    
+    @FXML
+    private Button btnProductoCrear;
+    
+    @FXML
+    private Button btnProductoEliminar;
+    
+    @FXML
+    private Button btnProductoActualizar;
+    
+    @FXML
+    private ComboBox<?> selectProductoCategoria;
+    
+    @FXML
+    private ComboBox<?> selectProductoSede;
+    
+    @FXML
+    private TableColumn<?, ?> columProductoStock;
+
+    @FXML
+    private TableColumn<?, ?> columProductoCategoria;
+    
+    @FXML
+    private TableColumn<?, ?> columProductoSede;
+
+    @FXML
+    private TableColumn<?, ?> columProductoNombre;
+    
+    @FXML
+    private TableColumn<?, ?> columProductoPrecio;
+    
 
     @FXML
     void initialize() {
@@ -85,7 +132,7 @@ public class TiendaElectronicaController {
     		
     	});
     }
-    
+       
     private void showInfoClient(Cliente cliente) {
 		
     	inputClienteDocumento.setText(String.valueOf(cliente.getId()));
@@ -110,10 +157,11 @@ public class TiendaElectronicaController {
     	String departamento = inputClienteDepartamento.getText();
     	String ciudad = inputClienteCiudad.getText();
     	
+
     	//Validacampos
     	
 	    	if (datosValidos(documento,nombre,direccion,correo,fechaNac,departamento,ciudad)==true) {
-	    		
+
 	    		//registrar
 	    		Cliente cliente = null;
 	    		
@@ -135,10 +183,8 @@ public class TiendaElectronicaController {
 				
 				
 			}
-    
 
-    	
-    	
+
     }
 
     private boolean datosValidos(String documento, String nombre, String direccion, String correo, String fechaNac,
@@ -212,6 +258,25 @@ public class TiendaElectronicaController {
     	alert.setContentText(contenido);
     	alert.showAndWait();
 	}
+	
+	
+	//-------------------------------------------- Action btn Producto ----------------------------------------------------
+	
+	@FXML
+    void crearProducto(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actualizarProducto(ActionEvent event) {
+
+    }
+
+    @FXML
+    void eliminarProducto(ActionEvent event) {
+
+    }
+
 
 
 }
