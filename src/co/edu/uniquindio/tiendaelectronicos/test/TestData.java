@@ -1,6 +1,5 @@
 package co.edu.uniquindio.tiendaelectronicos.test;
 
-import java.util.ArrayList;
 
 import co.edu.uniquindio.tiendaelectronicos.model.Administrador;
 import co.edu.uniquindio.tiendaelectronicos.model.CategoriaProducto;
@@ -15,7 +14,7 @@ import javafx.collections.ObservableList;
 
 public class TestData {
 
-	public static TiendaElectronica inicializarDatos(TiendaElectronica tiendaElectronica){
+	public TiendaElectronica inicializarDatos(TiendaElectronica tiendaElectronica){
 		
 		TiendaElectronica tienda = tiendaElectronica;
 		
@@ -41,6 +40,10 @@ public class TestData {
 		
 		//Sedes
 		Sede sede = new Sede("Armenia", 001, admin);
+		listSede.add(sede);
+		sede = new Sede("Circasia", 002, admin);
+		listSede.add(sede);
+		sede = new Sede("Calarca", 001, admin);
 		listSede.add(sede);
 		tienda.setListSedes(listSede);
 		

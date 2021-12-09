@@ -7,8 +7,11 @@ import co.edu.uniquindio.tiendaelectronicos.model.Administrador;
 import co.edu.uniquindio.tiendaelectronicos.model.CategoriaProducto;
 import co.edu.uniquindio.tiendaelectronicos.model.Cliente;
 import co.edu.uniquindio.tiendaelectronicos.model.Producto;
+import co.edu.uniquindio.tiendaelectronicos.model.Sede;
 import co.edu.uniquindio.tiendaelectronicos.model.TiendaElectronica;
+import co.edu.uniquindio.tiendaelectronicos.test.TestData;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -18,13 +21,16 @@ public class Aplicacion extends Application {
 
 	private Stage primaryStage;
 	Administrador administradorNacional = new Administrador("123", "Juan", "slakjfalkjdf", "sldkfjslkfj", "sldfkslkfjd","dddff");
-	TiendaElectronica miTienda = new TiendaElectronica(administradorNacional);
+	TestData test = new TestData();
+	TiendaElectronica miTienda = test.inicializarDatos(new TiendaElectronica(administradorNacional)) ;
+	
 	
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Tienda Electrodomesticos");
 		mostrarVentanaPrincipal();
+		
 	}
 	
 	public void mostrarVentanaPrincipal() {
@@ -74,5 +80,10 @@ public class Aplicacion extends Application {
 	public boolean eliminarProducto(int codigo) {
 		
 		return miTienda.eliminarProducto(codigo);
+	}
+
+	public ObservableList<Sede> obtenerSedes() {
+		
+		return miTienda.getListSedes();
 	}
 }

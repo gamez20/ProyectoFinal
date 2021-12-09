@@ -6,6 +6,7 @@ import co.edu.uniquindio.tiendaelectronicos.Aplicacion;
 import co.edu.uniquindio.tiendaelectronicos.model.CategoriaProducto;
 import co.edu.uniquindio.tiendaelectronicos.model.Cliente;
 import co.edu.uniquindio.tiendaelectronicos.model.Producto;
+import co.edu.uniquindio.tiendaelectronicos.model.Sede;
 import co.edu.uniquindio.tiendaelectronicos.model.TiendaElectronica;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -153,7 +154,7 @@ public class TiendaElectronicaController {
     private Label labelTransaccionTotal;
 
     @FXML
-    private ComboBox<?> selectTransaccionSede;
+    private ComboBox<Sede> selectTransaccionSede;
     
     @FXML
     private TextField inputTransaccionNumTarjeta;
@@ -182,7 +183,10 @@ public class TiendaElectronicaController {
     	});
     	
     	inicializarDatosProducto();
+    	inicializarDatosTransaccion();
     }
+
+	
 
 	private void showInfoClient(Cliente cliente) {
 		
@@ -278,6 +282,7 @@ public class TiendaElectronicaController {
     	inputProductoCodigo.clear();
     	labelProductoCodigo.setVisible(false);
 		inputProductoCodigo.setVisible(false);
+		btnProductoCrear.setDisable(false);
     	//selectProductoCategoria.setValue(value);;
     	//selectProductoSede.getSelectionModel().selectFirst();
 	}
@@ -348,6 +353,14 @@ public class TiendaElectronicaController {
     		
     	});
     
+	}
+    
+    private void inicializarDatosTransaccion() {
+    	/*if (aplicacion.obtenerSedes().size() > 0) {
+    		selectTransaccionSede.setItems(aplicacion.obtenerSedes());
+    		
+		}*/
+		
 	}
     
     private void showInfoProducto(Producto producto) {
@@ -469,6 +482,13 @@ public class TiendaElectronicaController {
     					"Producto OK", AlertType.INFORMATION);
 			}
     	}
+    }
+    
+  //-------------------------------------------- Action btn Transaccion ----------------------------------------------------
+    
+    @FXML
+    void creaVenta(ActionEvent event) {
+
     }
     
     private boolean mostrarMensajeConfirmacion(String mensaje) {
