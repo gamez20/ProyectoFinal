@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -21,6 +22,7 @@ public class TiendaElectronicaController {
 	private ObservableList<Cliente> listClientes;
 	private Cliente cliente;
 
+	// Client
     @FXML
     private TableView<Cliente> tableClientelistacliente;
 
@@ -68,6 +70,51 @@ public class TiendaElectronicaController {
 
     @FXML
     private Button btnClienteCrear;
+    
+    // Producto
+    
+    @FXML
+    private TextField inputProductoNombre;
+    
+    @FXML
+    private TableView<?> tableProductolistaProducto;
+        
+    @FXML
+    private TextField inputProductoPrecio;
+        
+    @FXML
+    private TextField inputProductoStock;
+    
+    @FXML
+    private Button btnProductoCrear;
+    
+    @FXML
+    private Button btnProductoEliminar;
+    
+    @FXML
+    private Button btnProductoActualizar;
+    
+    @FXML
+    private ComboBox<?> selectProductoCategoria;
+    
+    @FXML
+    private ComboBox<?> selectProductoSede;
+    
+    @FXML
+    private TableColumn<?, ?> columProductoStock;
+
+    @FXML
+    private TableColumn<?, ?> columProductoCategoria;
+    
+    @FXML
+    private TableColumn<?, ?> columProductoSede;
+
+    @FXML
+    private TableColumn<?, ?> columProductoNombre;
+    
+    @FXML
+    private TableColumn<?, ?> columProductoPrecio;
+    
 
     @FXML
     void initialize() {
@@ -85,7 +132,7 @@ public class TiendaElectronicaController {
     		
     	});
     }
-    
+       
     private void showInfoClient(Cliente cliente) {
 		
     	inputClienteDocumento.setText(String.valueOf(cliente.getId()));
@@ -111,7 +158,7 @@ public class TiendaElectronicaController {
     	String ciudad = inputClienteCiudad.getText();
     	
 	    	if (tienda.validFieldsCliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad)) {
-	    		System.out.println(inputClienteCiudad.getText());
+	    		
 	    		tienda.crearCliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad);
 	    		clearCamposClientes();
 	    		notificacion("Exitoso","Guardo correctamente",AlertType.INFORMATION);
@@ -119,12 +166,11 @@ public class TiendaElectronicaController {
 			}else {
 				notificacion("Campos Vacios","llenar todos los campos",AlertType.INFORMATION); 
 			}
+	    	
     	}catch (Exception e) {
     		notificacion("Campo Documento","Campo Documento obligatorio",AlertType.ERROR); 
 		}
 
-    	
-    	
     }
 
     private void clearCamposClientes() {
@@ -168,5 +214,24 @@ public class TiendaElectronicaController {
 		alerta.setContentText(contenido);
 		alerta.showAndWait();
 	}
+	
+	
+	//-------------------------------------------- Action btn Producto ----------------------------------------------------
+	
+	@FXML
+    void crearProducto(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actualizarProducto(ActionEvent event) {
+
+    }
+
+    @FXML
+    void eliminarProducto(ActionEvent event) {
+
+    }
+
 
 }
