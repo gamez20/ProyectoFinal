@@ -12,7 +12,7 @@ public class TiendaElectronica {
 	private ObservableList<Ciudad> listCiudades;
 	private ObservableList<Administrador> listAdministrador;
 	private Administrador administradorNacional;
-	
+	private int idProducto = 1;
 	
 	public TiendaElectronica(Administrador administradorNacional) {
 		this.administradorNacional = administradorNacional;
@@ -96,7 +96,6 @@ public class TiendaElectronica {
 			 getListClientes().add(cliente);
 		}
 		
-		
 		return cliente;
 		
 	}
@@ -110,6 +109,46 @@ public class TiendaElectronica {
 		}
 		
 		return null;
+	}
+
+	public Producto crearProducto(String nombre, double precio, int stock, String sede, CategoriaProducto categoria) {
+		
+		Producto producto = new Producto(idProducto,sede,nombre,precio,categoria,stock);
+		listProductos.add(producto);
+		this.idProducto += 1;
+		return producto;
+	}
+
+	public Producto actualizarProducto(int idProducto, int codigo, String nombre, double precio, int stock,
+			String sede, CategoriaProducto categoria) {
+		
+		for (Producto producto : listProductos) {
+			if(producto.getCodigo() == idProducto){
+				
+				producto.setCodigo(codigo);
+				producto.setNombre(nombre);
+				producto.setValor(precio);
+				producto.setStock(stock);
+				producto.setCategoriaProducto(categoria);
+				producto.setSede(sede);
+				
+				return producto;
+				
+			}
+		}
+		
+		return null;
+	}
+
+	public boolean eliminarProducto(int codigo) {
+		
+		for (int i = 0; i < listProductos.size(); i++) {
+			if (listProductos.get(i).getCodigo() == codigo) {
+				listProductos.remove(i);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

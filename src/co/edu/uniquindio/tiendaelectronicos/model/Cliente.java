@@ -10,6 +10,7 @@ public class Cliente extends Persona{
 	// variables
 	private String ciudad;
 	private String departamento;
+	private Tarjeta tarjeta;
 
 	/**
 	 * Constructor
@@ -36,6 +37,15 @@ public class Cliente extends Persona{
 
 	public void setDepartamento(String departamento) {
 		this.departamento = departamento;
+	}
+
+	public Tarjeta getTarjeta() {
+		return tarjeta;
+	}
+
+	public void setTarjeta(Tarjeta tarjeta) {
+		this.tarjeta = tarjeta;
 	}	
+	
 	
 }

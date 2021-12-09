@@ -1,6 +1,5 @@
 package co.edu.uniquindio.tiendaelectronicos.model;
 
-import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

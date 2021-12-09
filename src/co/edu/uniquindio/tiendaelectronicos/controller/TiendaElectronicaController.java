@@ -1,14 +1,20 @@
 package co.edu.uniquindio.tiendaelectronicos.controller;
 
+import java.util.Optional;
+
 import co.edu.uniquindio.tiendaelectronicos.Aplicacion;
+import co.edu.uniquindio.tiendaelectronicos.model.CategoriaProducto;
 import co.edu.uniquindio.tiendaelectronicos.model.Cliente;
+import co.edu.uniquindio.tiendaelectronicos.model.Producto;
 import co.edu.uniquindio.tiendaelectronicos.model.TiendaElectronica;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -19,9 +25,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class TiendaElectronicaController {
 	
 	private Aplicacion aplicacion;
-	private ObservableList<Cliente> listClientes;
 	private Cliente cliente;
-
+	private Producto producto;
+	
 	// Client
     @FXML
     private TableView<Cliente> tableClientelistacliente;
@@ -77,7 +83,7 @@ public class TiendaElectronicaController {
     private TextField inputProductoNombre;
     
     @FXML
-    private TableView<?> tableProductolistaProducto;
+    private TableView<Producto> tableProductolistaProducto;
         
     @FXML
     private TextField inputProductoPrecio;
@@ -95,27 +101,70 @@ public class TiendaElectronicaController {
     private Button btnProductoActualizar;
     
     @FXML
-    private ComboBox<?> selectProductoCategoria;
+    private ComboBox<CategoriaProducto> selectProductoCategoria;
     
     @FXML
-    private ComboBox<?> selectProductoSede;
+    private ComboBox<String> selectProductoSede;
     
     @FXML
-    private TableColumn<?, ?> columProductoStock;
+    private TableColumn<Producto, Integer> columProductoStock;
 
     @FXML
-    private TableColumn<?, ?> columProductoCategoria;
+    private TableColumn<Producto, CategoriaProducto> columProductoCategoria;
     
     @FXML
-    private TableColumn<?, ?> columProductoSede;
+    private TableColumn<Producto, String> columProductoSede;
 
     @FXML
-    private TableColumn<?, ?> columProductoNombre;
+    private TableColumn<Producto, String> columProductoNombre;
     
     @FXML
-    private TableColumn<?, ?> columProductoPrecio;
+    private TableColumn<Producto, Double> columProductoPrecio;
     
+    @FXML
+    private TextField inputProductoCodigo;
 
+    @FXML
+    private Label labelProductoCodigo;
+    
+    //------------------------------------------ Transaccion components ------------------------------------------------------------
+    @FXML
+    private TextField inputTransaccionCvv;
+
+    @FXML
+    private TableView<?> tableTransaccionlistaProducto;
+
+    @FXML
+    private TextField inputTransaccionCodigoProducto;
+   
+    @FXML
+    private TextField inputTransaccionCantidadProducto;
+   
+    @FXML
+    private TextField inputTransaccionFechaTarjeta;
+    
+    @FXML
+    private TableView<?> tableTransaccionlistaVentas;
+    
+    @FXML
+    private Button btnTransaccionCompra;
+
+    @FXML
+    private Label labelTransaccionTotal;
+
+    @FXML
+    private ComboBox<?> selectTransaccionSede;
+    
+    @FXML
+    private TextField inputTransaccionNumTarjeta;
+
+    @FXML
+    private ComboBox<?> selectTransaccionCliente;
+
+    @FXML
+    private ComboBox<?> selectTransaccionTarjeta;
+
+    
     @FXML
     void initialize() {
     	columNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -131,9 +180,11 @@ public class TiendaElectronicaController {
     		showInfoClient(cliente);
     		
     	});
+    	
+    	inicializarDatosProducto();
     }
-       
-    private void showInfoClient(Cliente cliente) {
+
+	private void showInfoClient(Cliente cliente) {
 		
     	inputClienteDocumento.setText(String.valueOf(cliente.getId()));
     	inputClienteNombre.setText(cliente.getNombre());
@@ -147,7 +198,6 @@ public class TiendaElectronicaController {
 	@FXML
     void eventClienteCrear(ActionEvent event) {
     	
-    	
     	//captura datos
 		String documento = inputClienteDocumento.getText();
     	String nombre = inputClienteNombre.getText();
@@ -160,38 +210,33 @@ public class TiendaElectronicaController {
 
     	//Validacampos
     	
-	    	if (datosValidos(documento,nombre,direccion,correo,fechaNac,departamento,ciudad)==true) {
+    	if (datosValidos(documento,nombre,direccion,correo,fechaNac,departamento,ciudad)==true) {
 
-	    		//registrar
-	    		Cliente cliente = null;
-	    		
-	    		cliente= aplicacion.crearCliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad);
-	    		
-	    		if(cliente !=null){
-	    			clearCamposClientes();
-	    			notificacion("Notificación cliente", "Cliente registrado",
-	    					"Cliente OK", AlertType.INFORMATION);
-	    		}else{
-	    			notificacion("Notificación cliente", "Cliente no registrado",
-	    					"El cliente con docuemnto "+documento+" ya se encuentra registrado", AlertType.INFORMATION);
-	    		}
-
-			}else {
-				
+    		//registrar
+    		Cliente cliente = aplicacion.crearCliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad);
+    		
+    		if(cliente !=null){
+    			clearCampos();
+    			notificacion("Notificación cliente", "Cliente registrado",
+    					"Cliente OK", AlertType.INFORMATION);
+    		}else{
     			notificacion("Notificación cliente", "Cliente no registrado",
-    					"El cliente no se ha logrado registrar", AlertType.ERROR);
-				
-				
-			}
+    					"El cliente con docuemnto "+documento+" ya se encuentra registrado", AlertType.INFORMATION);
+    		}
 
-
+		}else {
+			
+			notificacion("Notificación cliente", "Cliente no registrado",
+					"El cliente no se ha logrado registrar", AlertType.ERROR);
+			
+			
+		}
     }
 
     private boolean datosValidos(String documento, String nombre, String direccion, String correo, String fechaNac,
 			String departamento, String ciudad) {
 
     	String mensaje = "";
-    
     
     	if(documento == null || documento.equals(""))
 			mensaje += "El documento es invalido \n";
@@ -215,8 +260,9 @@ public class TiendaElectronicaController {
 		}
 	}
 
-	private void clearCamposClientes() {
+	private void clearCampos() {
     	
+		//Campos Cliente
     	inputClienteDocumento.clear();
     	inputClienteNombre.clear();
     	inputClienteDireccion.clear();
@@ -224,6 +270,16 @@ public class TiendaElectronicaController {
     	inputClienteFechaNac.clear();
     	inputClienteDepartamento.clear();
     	inputClienteCiudad.clear();
+    		
+    	//Campos Producto
+    	inputProductoNombre.clear();
+    	inputProductoPrecio.clear();
+    	inputProductoStock.clear();
+    	inputProductoCodigo.clear();
+    	labelProductoCodigo.setVisible(false);
+		inputProductoCodigo.setVisible(false);
+    	//selectProductoCategoria.setValue(value);;
+    	//selectProductoSede.getSelectionModel().selectFirst();
 	}
 
 	@FXML
@@ -239,8 +295,13 @@ public class TiendaElectronicaController {
 	public void setAplicacion(Aplicacion aplicacion, TiendaElectronica tienda) {
 		this.aplicacion = aplicacion;
 		
+		//Llenar tabla clientes
 		tableClientelistacliente.getItems().clear();
 		tableClientelistacliente.setItems(tienda.getListClientes());
+		
+		//Llenar tabal productos
+		tableProductolistaProducto.getItems().clear();
+		tableProductolistaProducto.setItems(tienda.getListProductos());
 	}
 	
 	//Alertas
@@ -262,21 +323,170 @@ public class TiendaElectronicaController {
 	
 	//-------------------------------------------- Action btn Producto ----------------------------------------------------
 	
+    private void inicializarDatosProducto() {
+    	selectProductoCategoria.getItems().addAll(CategoriaProducto.HOGAR,CategoriaProducto.EMPRESARIALES, CategoriaProducto.ENTRETENIMIENTO);
+    	//selectProductoSede.getItems().addAll(tienda.getListSedes());
+    	selectProductoSede.getItems().addAll("Armenia","Circasia","Calarca");
+    	
+    	// PLaceholder en el input inputProductoNombre.setPromptText("Ingrese el nombre");
+    	
+    	columProductoNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+    	columProductoPrecio.setCellValueFactory(new PropertyValueFactory<>("valor"));
+    	columProductoCategoria.setCellValueFactory(new PropertyValueFactory<>("categoriaProducto"));
+    	columProductoSede.setCellValueFactory(new PropertyValueFactory<>("sede"));
+    	columProductoStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
+    	
+    	tableProductolistaProducto.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection) -> {
+    		
+    		labelProductoCodigo.setVisible(true);
+    		inputProductoCodigo.setVisible(true);
+    		btnProductoCrear.setDisable(true);
+    		
+    		producto = newSelection;
+    		
+    		showInfoProducto(producto);
+    		
+    	});
+    
+	}
+    
+    private void showInfoProducto(Producto producto) {
+		
+    	if (producto != null) {
+
+        	inputProductoNombre.setText(producto.getNombre());
+        	inputProductoPrecio.setText(String.valueOf(producto.getValor()));
+        	inputProductoStock.setText(String.valueOf(producto.getStock()));
+        	selectProductoSede.setValue(producto.getSede());
+        	selectProductoCategoria.setValue(producto.getCategoriaProducto());
+        	inputProductoCodigo.setText(String.valueOf(producto.getCodigo()));
+    	}
+	}
+    
 	@FXML
     void crearProducto(ActionEvent event) {
+		
+		// Captura de datos
+		String nombre = inputProductoNombre.getText();
+		String sede = selectProductoSede.getValue();
+		CategoriaProducto categoria = selectProductoCategoria.getValue();
+		
+		if(datosValidosProducto(nombre, inputProductoPrecio.getText(), inputProductoStock.getText(), sede, categoria)){
+			
+			double precio = Double.parseDouble(inputProductoPrecio.getText());
+			int stock = Integer.parseInt(inputProductoStock.getText());
+			
+			if(aplicacion.crearProducto(nombre,precio,stock,sede,categoria) !=null){
+				
+    			clearCampos();
+    			notificacion("Notificación producto", "Producto registrado",
+    					"Producto OK", AlertType.INFORMATION);
+    		}else{
+    			notificacion("Notificación producto", "Producto no registrado",
+    					"El producto se encuentra registrado", AlertType.INFORMATION);
+    		}
 
+		}else {
+			
+			notificacion("Notificación producto", "Producto no registrado",
+					"El producto no se ha logrado registrar", AlertType.ERROR);
+		}
     }
 
-    @FXML
-    void actualizarProducto(ActionEvent event) {
+    private boolean datosValidosProducto(String nombre, String precio, String stock, String sede, CategoriaProducto categoria) {
+    	
+    	String mensaje = "";
+        
+    	if(nombre == null || nombre.equals(""))
+			mensaje += "El nombre es invalido \n";
+		if(precio == null || precio.equals(""))
+			mensaje += "La precio es invalida \n";
+		if(stock == null || stock.equals(""))
+			mensaje += "El stock es invalido \n";
+		if(sede == null || sede.equals(""))
+			mensaje += "El sede es invalido \n";
+		if(categoria == null)
+			mensaje += "El categoria es invalido \n";
+		if(mensaje.equals("")){
+			return true;
+		}else{
+			notificacion("Información Producto", "Datos invalidos", mensaje, AlertType.WARNING);
+			return false;
+		}
+	}
 
+	@FXML
+    void actualizarProducto(ActionEvent event) {
+		
+		if (mostrarMensajeConfirmacion("Desea Actualizar el Producto")) {
+			// Captura de datos
+			String nombre = inputProductoNombre.getText();
+			String sede = selectProductoSede.getValue();
+			CategoriaProducto categoria = selectProductoCategoria.getValue();
+			
+			if(datosValidosProducto(nombre, inputProductoPrecio.getText(), inputProductoStock.getText(), sede, categoria) && !(inputProductoCodigo.getText().equalsIgnoreCase(""))){
+				
+				double precio = Double.parseDouble(inputProductoPrecio.getText());
+				int stock = Integer.parseInt(inputProductoStock.getText());
+				int codigo = Integer.parseInt(inputProductoCodigo.getText());
+				
+				
+				if(aplicacion.actualizarProducto(producto.getCodigo(),codigo,nombre,precio,stock,sede,categoria) !=null){
+	    			
+	    			tableProductolistaProducto.refresh();
+	    			btnProductoCrear.setDisable(false);
+	    			tableProductolistaProducto.getSelectionModel().select(null);
+	    			clearCampos();
+	    			
+	    			notificacion("Notificación producto", "Producto actualizado",
+	    					"Producto OK", AlertType.INFORMATION);
+	    		}else{
+	    			notificacion("Notificación producto", "Producto no actualizado",
+	    					"El producto se encuentra registrado", AlertType.INFORMATION);
+	    		}
+	
+			}else {
+				
+				notificacion("Notificación producto", "Producto no registrado",
+						"El producto no se ha logrado registrar", AlertType.ERROR);
+			}
+		}
     }
 
     @FXML
     void eliminarProducto(ActionEvent event) {
 
+    	if (mostrarMensajeConfirmacion("Desea Eliminar el Producto")) {
+    		if (aplicacion.eliminarProducto(producto.getCodigo())) {
+    			
+    			tableProductolistaProducto.refresh();
+    			tableProductolistaProducto.getSelectionModel().select(null);
+    			clearCampos();
+    			notificacion("Notificación producto", "Producto eliminado",
+    					"Producto OK", AlertType.INFORMATION);
+			}else {
+				notificacion("Notificación producto", "Producto no eliminado",
+    					"Producto OK", AlertType.INFORMATION);
+			}
+    	}
     }
+    
+    private boolean mostrarMensajeConfirmacion(String mensaje) {
+
+		Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+		alerta.setHeaderText(null);
+		alerta.setTitle("Confirmacion");
+		alerta.setContentText(mensaje);
+
+		Optional<ButtonType> acction = alerta.showAndWait();
+
+		if (acction.get() == ButtonType.OK) {
+			return true;
+		}else {
+			return false;
+		}
 
 
+	}
 
 }

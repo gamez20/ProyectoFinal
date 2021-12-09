@@ -3,6 +3,7 @@ package co.edu.uniquindio.tiendaelectronicos.test;
 import java.util.ArrayList;
 
 import co.edu.uniquindio.tiendaelectronicos.model.Administrador;
+import co.edu.uniquindio.tiendaelectronicos.model.CategoriaProducto;
 import co.edu.uniquindio.tiendaelectronicos.model.Cliente;
 import co.edu.uniquindio.tiendaelectronicos.model.DetalleVenta;
 import co.edu.uniquindio.tiendaelectronicos.model.Producto;
@@ -25,15 +26,15 @@ public class TestData {
 		ObservableList<Venta> listCompras = FXCollections.observableArrayList();
 		
 		//Administradores
-		Administrador admin = new Administrador(001, "Julian", "Armenia", "19-04-2001", "sisas@gmail.com", "Administrador de empresas");
+		Administrador admin = new Administrador("001", "Julian", "Armenia", "19-04-2001", "sisas@gmail.com", "Administrador de empresas");
 		listAdmin.add(admin);
 		tienda.setListAdministrador(listAdmin);
 		
 		//Clientes
-		Cliente cliente = new Cliente(001, "Juan", "Armenia", "19-04-2021", "siAbueno@gmail.com", "Armenia", "Quindio");
+		Cliente cliente = new Cliente("001", "Juan", "Armenia", "19-04-2021", "siAbueno@gmail.com", "Armenia", "Quindio");
 		listCliente.add(cliente);
 		
-		cliente = new Cliente(002, "Jose", "Armenia", "28-04-2021", "siAbueno123@gmail.com", "Armenia", "Quindio");
+		cliente = new Cliente("002", "Jose", "Armenia", "28-04-2021", "siAbueno123@gmail.com", "Armenia", "Quindio");
 		listCliente.add(cliente);
 		
 		tienda.setListClientes(listCliente);
@@ -45,13 +46,13 @@ public class TestData {
 		
 		
 		//Productos
-		Producto producto1 = new Producto(001, sede, "Ventilador", 12.00);
+		Producto producto1 = new Producto(001, "Armenia", "Ventilador", 12.00,CategoriaProducto.HOGAR,12);
 		listProductos.add(producto1);
 		
-		Producto producto2 = new Producto(002, sede, "Radio", 5.00);
+		Producto producto2 = new Producto(002, "Armenia", "Radio", 5.00,CategoriaProducto.HOGAR,12);
 		listProductos.add(producto2);
 		
-		Producto producto3 = new Producto(003, sede, "Telivisor", 80.00);
+		Producto producto3 = new Producto(003, "Armenia", "Telivisor", 80.00,CategoriaProducto.HOGAR,12);
 		listProductos.add(producto3);
 		tienda.setListProductos(listProductos);
 		
