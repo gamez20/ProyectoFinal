@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane focusTraversable="true" prefHeight="611.0" prefWidth="680.0" style="-fx-background-color: #DAF7A6;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.tiendaelectronicos.controller.TiendaElectronicaController">
+<AnchorPane focusTraversable="true" prefHeight="656.0" prefWidth="680.0" style="-fx-background-color: #DAF7A6;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.tiendaelectronicos.controller.TiendaElectronicaController">
    <children>
-      <TabPane blendMode="SOFT_LIGHT" layoutY="26.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="575.0" prefWidth="680.0" rotateGraphic="true" style="-fx-background-color: #6200EE1F;" tabClosingPolicy="UNAVAILABLE">
+      <TabPane blendMode="SOFT_LIGHT" layoutY="26.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="633.0" prefWidth="680.0" rotateGraphic="true" style="-fx-background-color: #6200EE1F;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab style="-fx-background-color: #A2B448;" text="Crear Cliente">
                <content>
@@ -41,7 +41,7 @@
                               <Label layoutX="14.0" layoutY="43.0" prefHeight="17.0" prefWidth="76.0" text="Documento:" />
                            </children>
                         </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="380.0" prefWidth="680.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="680.0">
                            <children>
                               <TableView fx:id="tableClientelistacliente" layoutX="5.0" layoutY="37.0" prefHeight="200.0" prefWidth="664.0">
                                 <columns>
@@ -120,9 +120,9 @@
             </Tab>
             <Tab text="Crear producto">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="545.0" prefWidth="680.0">
                      <children>
-                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="547.0" prefWidth="680.0">
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="527.0" prefWidth="680.0">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
@@ -145,6 +145,8 @@
                                     <Label layoutX="19.0" layoutY="135.0" text="Stock :" />
                                     <TextField id="nombreProducto" fx:id="inputProductoStock" layoutX="90.0" layoutY="130.0" prefHeight="25.0" prefWidth="227.0" />
                                     <Separator layoutX="21.0" layoutY="170.0" prefHeight="13.0" prefWidth="648.0" />
+                                    <Label fx:id="labelProductoCodigo" layoutX="332.0" layoutY="135.0" text="Codigo:" visible="false" />
+                                    <TextField id="precioProducto" fx:id="inputProductoCodigo" layoutX="389.0" layoutY="130.0" prefHeight="25.0" prefWidth="275.0" visible="false" />
                                  </children></AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="268.0" prefWidth="678.0">
                                  <children>
@@ -171,55 +173,158 @@
             </Tab>
             <Tab text="Transaccion de venta">
               <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="611.0" prefWidth="680.0">
+                     <children>
+                        <SplitPane orientation="VERTICAL" prefHeight="552.0" prefWidth="687.0">
+                           <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="576.0" prefWidth="685.0">
+                                 <children>
+                                    <Label layoutX="8.0" layoutY="203.0" text="Informacion de la transaccion">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="7.0" layoutY="236.0" text="Cliente:" />
+                                    <ComboBox id="cliente" fx:id="selectTransaccionCliente" layoutX="60.0" layoutY="232.0" prefHeight="26.0" prefWidth="240.0" promptText="Seleccione el cliente" />
+                                    <Label layoutX="313.0" layoutY="236.0" text="Tipo de tarjeta:" />
+                                    <ComboBox id="tipoTarjeta" fx:id="selectTransaccionTarjeta" layoutX="413.0" layoutY="230.0" prefHeight="34.0" prefWidth="237.0" promptText="Seleccione el tipo de tarjeta" />
+                                    <Label layoutX="6.0" layoutY="278.0" text="N° de tarjeta:" />
+                                    <TextField id="numeroTarjeta" fx:id="inputTransaccionNumTarjeta" layoutX="97.0" layoutY="273.0" prefHeight="31.0" prefWidth="179.0" />
+                                    <Label layoutX="372.0" layoutY="272.0" prefHeight="33.0" prefWidth="154.0" text="Fecha de vencimiento:" />
+                                    <TextField id="fechaVencimientoTarjeta" fx:id="inputTransaccionFechaTarjeta" layoutX="526.0" layoutY="273.0" prefHeight="31.0" prefWidth="123.0" />
+                                    <Label layoutX="284.0" layoutY="278.0" text="CVV:" />
+                                    <TextField id="cvvTarjeta" fx:id="inputTransaccionCvv" layoutX="323.0" layoutY="273.0" prefHeight="31.0" prefWidth="40.0" />
+                                  <AnchorPane layoutX="6.0" layoutY="388.0" minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="670.0">
+                                       <children>
+                                          <Label layoutX="4.0" layoutY="14.0" text="Lista de transacciones">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <TableView fx:id="tableTransaccionlistaVentas" layoutX="4.0" layoutY="34.0" prefHeight="117.0" prefWidth="655.0">
+                                            <columns>
+                                              <TableColumn id="clienteTableTransaccion" prefWidth="130.0" text="Cliente" />
+                                              <TableColumn id="productoTableTransaccion" prefWidth="92.0" text="Producto" />
+                                                <TableColumn id="tipoTarjetaTableTransaccion" prefWidth="107.0" text="Total" />
+                                                <TableColumn id="numeroTableTransaccion" prefWidth="104.0" text="Tipo tarjeta" />
+                                                <TableColumn id="fechaVencimientoTableTransaccion" prefWidth="144.0" text="N° tarjeta" />
+                                                <TableColumn id="cvvTableTransaccion" prefWidth="77.0" text="Sede" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                    <Button id="crearTransaccion" fx:id="btnTransaccionCompra" layoutX="305.0" layoutY="366.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Realizar venta" />
+                                    <AnchorPane layoutX="6.0" layoutY="7.0" minHeight="0.0" minWidth="0.0" prefHeight="189.0" prefWidth="670.0">
+                                       <children>
+                                          <Label layoutX="7.0" text="Informacion de Sede">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="7.0" layoutY="35.0" text="Sede: " />
+                                          <ComboBox id="categoriaProducto" fx:id="selectTransaccionSede" layoutX="47.0" layoutY="33.0" prefHeight="26.0" prefWidth="276.0" promptText="Seleccione la sede" />
+                                          <TableView id="descripcionTableProducto" fx:id="tableTransaccionlistaProducto1" layoutY="73.0" prefHeight="117.0" prefWidth="660.0">
+                                             <columns>
+                                                <TableColumn id="nombreTableProducto" fx:id="columProductoNombre1" prefWidth="166.0" text="Nombre" />
+                                                <TableColumn id="precioTableProducto" fx:id="columProductoPrecio1" prefWidth="113.0" text="Precio" />
+                                                <TableColumn id="categoriaTableProducto" fx:id="columProductoCategoria1" prefWidth="133.0" text="Categoria" />
+                                                <TableColumn id="disponibilidadTableProducto" fx:id="columProductoSede1" prefWidth="130.0" text="Sede" />
+                                                <TableColumn fx:id="columProductoStock1" prefWidth="128.0" text="Stock" />
+                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                    <Label layoutX="7.0" layoutY="318.0" prefHeight="33.0" prefWidth="62.0" text="Codigo:" />
+                                    <TextField id="numeroTarjeta" fx:id="inputTransaccionCodigoProducto" layoutX="69.0" layoutY="319.0" prefHeight="31.0" prefWidth="179.0" />
+                                    <Label layoutX="251.0" layoutY="318.0" prefHeight="33.0" prefWidth="72.0" text="Cantidad:" />
+                                    <TextField id="numeroTarjeta" fx:id="inputTransaccionCantidadProducto" layoutX="324.0" layoutY="319.0" prefHeight="31.0" prefWidth="214.0" />
+                                    <Label layoutX="7.0" layoutY="365.0" prefHeight="33.0" prefWidth="62.0" text="Total:">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="labelTransaccionTotal" layoutX="63.0" layoutY="365.0" prefHeight="33.0" prefWidth="62.0" text="0000">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="51.0" layoutY="365.0" prefHeight="33.0" prefWidth="12.0" text="\$">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Administracion">
+              <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="552.0" prefWidth="687.0">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <Label layoutX="14.0" layoutY="6.0" text="Informacion de la transaccion">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="14.0" layoutY="37.0" text="Cliente:" />
-                                    <ComboBox id="cliente" layoutX="67.0" layoutY="33.0" prefHeight="25.0" prefWidth="240.0" promptText="Seleccione el cliente" />
-                                    <Label layoutX="332.0" layoutY="37.0" text="Producto:" />
-                                    <ComboBox id="producto" layoutX="395.0" layoutY="33.0" prefHeight="25.0" prefWidth="260.0" promptText="Seleccione el producto" />
-                                    <Label layoutX="14.0" layoutY="78.0" text="Tipo de tarjeta:" />
-                                    <ComboBox id="tipoTarjeta" layoutX="112.0" layoutY="74.0" prefHeight="25.0" prefWidth="195.0" promptText="Seleccione el tipo de tarjeta" />
-                                    <Label layoutX="332.0" layoutY="78.0" text="Numero de tarjeta:" />
-                                    <TextField id="numeroTarjeta" layoutX="444.0" layoutY="74.0" prefHeight="25.0" prefWidth="212.0" />
-                                    <Label layoutX="14.0" layoutY="123.0" text="Fecha de vencimiento:" />
-                                    <TextField id="fechaVencimientoTarjeta" layoutX="141.0" layoutY="119.0" prefHeight="25.0" prefWidth="166.0" />
-                                    <Label layoutX="332.0" layoutY="123.0" text="CVV:" />
-                                    <TextField id="cvvTarjeta" layoutX="370.0" layoutY="119.0" prefHeight="25.0" prefWidth="284.0" />
-                                    <Button id="crearTransaccion" layoutX="115.0" layoutY="206.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="CREAR" />
-                                    <Button id="actualizarTransaccion" layoutX="274.0" layoutY="206.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="ACTUALIZAR" />
-                                    <Button id="eliminarTransaccion" layoutX="432.0" layoutY="206.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="ELIMINAR" />
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <Label layoutX="14.0" layoutY="4.0" text="Lista de transacciones">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <TableView layoutX="14.0" layoutY="27.0" prefHeight="231.0" prefWidth="648.0">
-                                      <columns>
-                                        <TableColumn id="clienteTableTransaccion" prefWidth="135.0" text="Cliente" />
-                                        <TableColumn id="productoTableTransaccion" prefWidth="87.0" text="Producto" />
-                                          <TableColumn id="tipoTarjetaTableTransaccion" prefWidth="102.0" text="Tipo tarjeta" />
-                                          <TableColumn id="numeroTableTransaccion" prefWidth="141.0" text="Numero tarjeta" />
-                                          <TableColumn id="fechaVencimientoTableTransaccion" prefWidth="112.0" text="Fecha vencimiento" />
-                                          <TableColumn id="cvvTableTransaccion" prefWidth="70.0" text="CVV" />
-                                      </columns>
-                                    </TableView>
-                                 </children>
-                              </AnchorPane>
-                          </items>
-                        </SplitPane>
+                        <Label layoutX="14.0" layoutY="4.0" text="Busqueda de producto">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="33.0" text="Codigo producto" />
+                        <TextField id="codigoProducto" layoutX="141.0" layoutY="28.0" prefHeight="31.0" prefWidth="243.0" />
+                        <Button id="buscarProducto" layoutX="403.0" layoutY="28.0" mnemonicParsing="false" text="BUSCAR" />
+                        <TableView layoutX="14.0" layoutY="64.0" prefHeight="146.0" prefWidth="464.0">
+                          <columns>
+                            <TableColumn id="codigoTableProducto" prefWidth="75.0" text="Codigo" />
+                            <TableColumn id="nombreTableProducto" prefWidth="75.0" text="Nombre" />
+                              <TableColumn id="sedeTableProducto" prefWidth="75.0" text="Sede" />
+                              <TableColumn id="categoriaTableProducto" prefWidth="75.0" text="Categoria" />
+                              <TableColumn id="precioTableProducto" prefWidth="75.0" text="Precio" />
+                              <TableColumn id="stockTableProducto" prefWidth="88.0" text="Stock" />
+                          </columns>
+                        </TableView>
+                        <TableView layoutX="21.0" layoutY="277.0" prefHeight="112.0" prefWidth="310.0">
+                           <columns>
+                              <TableColumn id="productoTableVendidos" prefWidth="75.0" text="Producto" />
+                              <TableColumn id="codigoTableVendidos" prefWidth="102.0" text="Codigo" />
+                              <TableColumn id="compradorTableVendidos" prefWidth="132.0" text="Comprador" />
+                           </columns>
+                        </TableView>
+                        <TextField id="rangoProducto" layoutX="139.0" layoutY="242.0" prefHeight="31.0" prefWidth="193.0" />
+                        <Label layoutX="21.0" layoutY="246.0" text="Rango producto" />
+                        <Label layoutX="21.0" layoutY="217.0" text="Lista productos mas vendidos">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="375.0" layoutY="217.0" text="Lista clientes con mayores compras">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="363.0" layoutY="246.0" prefHeight="21.0" prefWidth="85.0" text="Rango sede" />
+                        <TextField id="rangoSede" layoutX="451.0" layoutY="242.0" prefHeight="31.0" prefWidth="193.0" />
+                        <TableView layoutX="363.0" layoutY="277.0" prefHeight="112.0" prefWidth="299.0">
+                           <columns>
+                              <TableColumn id="clienteTableCompras" prefWidth="75.0" text="Cliente" />
+                              <TableColumn id="identificacionTableCompras" prefWidth="106.0" text="Identificacion" />
+                              <TableColumn id="productosTableCompras" prefWidth="105.0" text="Productos" />
+                           </columns>
+                        </TableView>
+                        <TableView layoutX="21.0" layoutY="467.0" prefHeight="98.0" prefWidth="511.0">
+                           <columns>
+                              <TableColumn id="sedeTableSede" prefWidth="132.0" text="Sede" />
+                              <TableColumn id="productoTableSede" prefWidth="198.0" text="Producto" />
+                              <TableColumn id="cantidadTableSede" prefWidth="178.0" text="Cantidad disponible" />
+                           </columns>
+                        </TableView>
+                        <TextField id="sede" layoutX="65.0" layoutY="428.0" prefHeight="31.0" prefWidth="162.0" />
+                        <Label layoutX="26.0" layoutY="432.0" text="Sede" />
+                        <Label layoutX="26.0" layoutY="402.0" text="Lista de sedes y productos">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
               </content>

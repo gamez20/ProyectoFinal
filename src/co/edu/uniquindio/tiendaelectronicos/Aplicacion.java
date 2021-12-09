@@ -4,7 +4,9 @@ import java.io.IOException;
 
 import co.edu.uniquindio.tiendaelectronicos.controller.TiendaElectronicaController;
 import co.edu.uniquindio.tiendaelectronicos.model.Administrador;
+import co.edu.uniquindio.tiendaelectronicos.model.CategoriaProducto;
 import co.edu.uniquindio.tiendaelectronicos.model.Cliente;
+import co.edu.uniquindio.tiendaelectronicos.model.Producto;
 import co.edu.uniquindio.tiendaelectronicos.model.TiendaElectronica;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -53,12 +55,11 @@ public class Aplicacion extends Application {
 	public Cliente crearCliente(String documento, String nombre, String direccion, String correo, String fechaNac,
 			String departamento, String ciudad) {
 		
-		Cliente cliente = null;
-
-		cliente = miTienda.crearCliente(documento, nombre, direccion, correo,fechaNac,departamento,ciudad);
+		Cliente cliente = miTienda.crearCliente(documento, nombre, direccion, correo,fechaNac,departamento,ciudad);
 
 		return cliente;
 	}
+
 
 	public boolean actualizarCliente(String documento, String nombre, String direccion, String correo, String fechaNac,
 			String departamento, String ciudad) {
@@ -73,5 +74,22 @@ public class Aplicacion extends Application {
 
 	public boolean eliminarCliente(String documento) {
 		return miTienda.eliminarCliente(documento);
+	}
+
+	public Producto crearProducto(String nombre, double precio, int stock, String sede, CategoriaProducto categoria) {
+		// TODO Auto-generated method stub
+		return miTienda.crearProducto(nombre,precio,stock,sede,categoria);
+	}
+
+	public Producto actualizarProducto(int idProducto, int codigo, String nombre, double precio, int stock, String sede,
+			CategoriaProducto categoria) {
+		
+		return miTienda.actualizarProducto(idProducto,codigo,nombre,precio,stock,sede,categoria);
+	}
+
+	public boolean eliminarProducto(int codigo) {
+		
+		return miTienda.eliminarProducto(codigo);
+
 	}
 }

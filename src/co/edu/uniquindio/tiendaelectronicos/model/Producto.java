@@ -5,30 +5,44 @@ public class Producto {
 	//Variables
 	
 	private int codigo;
-	private Sede sede;
+	private String sede;
 	private String nombre;
 	private double valor;
+	private CategoriaProducto categoriaProducto;
+	private int stock;
 	
-	
-	public Producto(int codigo, Sede sede, String nombre, double valor) {
+	public Producto(int codigo, String sede, String nombre, double valor, CategoriaProducto categoriaProducto, int stock) {
 		this.codigo = codigo;
 		this.sede = sede;
 		this.nombre = nombre;
 		this.valor = valor;
+		this.categoriaProducto = categoriaProducto;
+		this.stock = stock;
 	}
-	
+		
+	public CategoriaProducto getCategoriaProducto() {
+		return categoriaProducto;
+	}
+
+	public void setCategoriaProducto(CategoriaProducto categoriaProducto) {
+		this.categoriaProducto = categoriaProducto;
+	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
 	public int getCodigo() {
 		return codigo;
 	}
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
-	public Sede getSede() {
-		return sede;
-	}
-	public void setSede(Sede sede) {
-		this.sede = sede;
-	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -40,6 +54,14 @@ public class Producto {
 	}
 	public void setValor(double valor) {
 		this.valor = valor;
+	}
+
+	public String getSede() {
+		return sede;
+	}
+
+	public void setSede(String sede) {
+		this.sede = sede;
 	}
 	
 	
