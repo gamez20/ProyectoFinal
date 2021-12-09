@@ -59,4 +59,19 @@ public class Aplicacion extends Application {
 
 		return cliente;
 	}
+
+	public boolean actualizarCliente(String documento, String nombre, String direccion, String correo, String fechaNac,
+			String departamento, String ciudad) {
+		
+		boolean clienteActualizado = false;
+		
+		clienteActualizado = miTienda.actualizarCliente(documento, nombre, direccion, correo,fechaNac,departamento,ciudad);
+		
+		
+		return clienteActualizado;
+	}
+
+	public boolean eliminarCliente(String documento) {
+		return miTienda.eliminarCliente(documento);
+	}
 }

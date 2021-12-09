@@ -124,5 +124,41 @@ public class TiendaElectronica {
 		
 		return null;
 	}
+
+	public boolean actualizarCliente(String documento, String nombre, String direccion, String correo, String fechaNac,
+			String departamento, String ciudad) {
+		Cliente cliente = null;
+		
+		cliente=obtenerCliente(documento);
+		
+		if (cliente!=null){
+			
+			cliente.setId(documento);
+			cliente.setNombre(nombre);
+			cliente.setDireccion(direccion);
+			cliente.setCorreo(correo);
+			cliente.setFechaNacimiento(fechaNac);
+			cliente.setDepartamento(departamento);
+			cliente.setCiudad(ciudad);
+			return true;
+			
+		}
+		
+		return false;
+	}
+	
+	public boolean eliminarCliente(String documento){
+		
+		Cliente cliente = null;
+		
+		cliente = obtenerCliente(documento);
+		
+		if(cliente !=null){
+			getListClientes().remove(cliente);
+			return true;
+		}
+		
+		return false;
+	}
 	
 }

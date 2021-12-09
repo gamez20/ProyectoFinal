@@ -1,5 +1,7 @@
 package co.edu.uniquindio.tiendaelectronicos.controller;
 
+import java.util.Optional;
+
 import co.edu.uniquindio.tiendaelectronicos.Aplicacion;
 import co.edu.uniquindio.tiendaelectronicos.model.Cliente;
 import co.edu.uniquindio.tiendaelectronicos.model.TiendaElectronica;
@@ -8,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -230,13 +233,78 @@ public class TiendaElectronicaController {
 
 	@FXML
     void eventClienteActualizar(ActionEvent event) {
-    	System.out.println("actualizar");
+    	
+		//capturar datos
+		String documento = inputClienteDocumento.getText();
+    	String nombre = inputClienteNombre.getText();
+    	String direccion  = inputClienteDireccion.getText();
+    	String correo = inputClienteEmail.getText();
+    	String fechaNac = inputClienteFechaNac.getText();
+    	String departamento = inputClienteDepartamento.getText();
+    	String ciudad = inputClienteCiudad.getText();
+		
+		boolean clienteActualizado = false;
+		if(cliente !=null ){
+			
+			if(datosValidos(documento, nombre, direccion, correo, fechaNac, departamento, ciudad)){
+				
+				clienteActualizado = aplicacion.actualizarCliente(cliente.getId(), nombre, direccion, correo, fechaNac, departamento, ciudad);
+				
+				if(clienteActualizado == true){
+					tableClientelistacliente.refresh();
+        			notificacion("Notificación cliente", "Cliente actualizado", "El cliente se ha actualizado con éxtio", AlertType.INFORMATION);
+				}
+				else{
+					notificacion("Notificación cliente", "Cliente no actualizado", "El cliente no se puede actualizar", AlertType.ERROR);
+				}
+			}else{
+				notificacion("Notificación cliente", "Cliente no seleccionado", "Debe seleccionar un cliente", AlertType.WARNING);
+			}
+		}
+		
     }	
 
     @FXML
     void eventClienteEliminar(ActionEvent event) {
-    	System.out.println("eliminar");
+
+    	boolean clienteEliminado = false;
+    	
+    	if(cliente !=null ){
+    		
+    		if(notificacionConfirmacion("¿Esta seguro de eliminar el cliente? ") == true){
+    			clienteEliminado= aplicacion.eliminarCliente(cliente.getId());
+        		
+        		if(clienteEliminado == true){
+        			listClientes.remove(cliente);
+        			cliente = null;
+        			tableClientelistacliente.getSelectionModel().clearSelection();
+        			notificacion("Notificación cliente", "Cliente actualizado", "El cliente se ha eliminado con éxtio", AlertType.INFORMATION);
+        		}else{
+        			notificacion("Notificación cliente", "Cliente no eliminado", "El cliente no se puede eliminar", AlertType.ERROR);
+        		}
+    		}
+    		
+    	}else{
+    		notificacion("Notificación cliente", "Cliente no seleccionado", "Debe seleccionar un cliente", AlertType.WARNING);
+		}
     }
+
+	private boolean notificacionConfirmacion(String mensaje) {
+
+	   	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    	alert.setTitle("Confirmación");
+    	alert.setHeaderText(null);
+    	alert.setContentText(mensaje);
+
+    	Optional<ButtonType> action = alert.showAndWait();
+
+    	if(action.get() == ButtonType.OK){
+    		return true;
+    	}else{
+    		return false;
+    	}
+	
+	}
 
 	public void setAplicacion(Aplicacion aplicacion, TiendaElectronica tienda) {
 		this.aplicacion = aplicacion;
