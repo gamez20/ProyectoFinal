@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import co.edu.uniquindio.tiendaelectronicos.controller.TiendaElectronicaController;
 import co.edu.uniquindio.tiendaelectronicos.model.Administrador;
+import co.edu.uniquindio.tiendaelectronicos.model.Cliente;
 import co.edu.uniquindio.tiendaelectronicos.model.TiendaElectronica;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +15,7 @@ import javafx.stage.Stage;
 public class Aplicacion extends Application {
 
 	private Stage primaryStage;
-	Administrador administradorNacional = new Administrador(123, "Juan", "slakjfalkjdf", "sldkfjslkfj", "sldfkslkfjd","dddff");
+	Administrador administradorNacional = new Administrador("123", "Juan", "slakjfalkjdf", "sldkfjslkfj", "sldfkslkfjd","dddff");
 	TiendaElectronica miTienda = new TiendaElectronica(administradorNacional);
 	
 	@Override
@@ -47,5 +48,15 @@ public class Aplicacion extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	public Cliente crearCliente(String documento, String nombre, String direccion, String correo, String fechaNac,
+			String departamento, String ciudad) {
+		
+		Cliente cliente = null;
+
+		cliente = miTienda.crearCliente(documento, nombre, direccion, correo,fechaNac,departamento,ciudad);
+
+		return cliente;
 	}
 }

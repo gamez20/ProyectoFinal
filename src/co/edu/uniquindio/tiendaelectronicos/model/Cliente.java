@@ -16,7 +16,7 @@ public class Cliente extends Persona{
 	 * @param ciudad
 	 * @param departamento
 	 */
-	public Cliente(int id,String nombre,String direccion,String fechaNacimiento,String correo,String ciudad,String departamento){
+	public Cliente(String id,String nombre,String direccion,String fechaNacimiento,String correo,String ciudad,String departamento){
 		super( id,nombre, direccion, fechaNacimiento,correo);
 		this.ciudad=ciudad;
 		this.departamento = departamento;

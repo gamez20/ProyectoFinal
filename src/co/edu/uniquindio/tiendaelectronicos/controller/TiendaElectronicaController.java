@@ -17,7 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TiendaElectronicaController {
 	
-	private TiendaElectronica tienda;
+	private Aplicacion aplicacion;
 	private ObservableList<Cliente> listClientes;
 	private Cliente cliente;
 
@@ -79,7 +79,7 @@ public class TiendaElectronicaController {
     	
     	tableClientelistacliente.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection) -> {
     		
-    		inputClienteDocumento.setDisable(true);
+//    		inputClienteDocumento.setDisable(true);
     		cliente = newSelection;
     		showInfoClient(cliente);
     		
@@ -99,10 +99,10 @@ public class TiendaElectronicaController {
 
 	@FXML
     void eventClienteCrear(ActionEvent event) {
-    	System.out.println("crear");
     	
-    	try{
-    	int documento = Integer.parseInt(inputClienteDocumento.getText());
+    	
+    	//captura datos
+		String documento = inputClienteDocumento.getText();
     	String nombre = inputClienteNombre.getText();
     	String direccion  = inputClienteDireccion.getText();
     	String correo = inputClienteEmail.getText();
@@ -110,24 +110,66 @@ public class TiendaElectronicaController {
     	String departamento = inputClienteDepartamento.getText();
     	String ciudad = inputClienteCiudad.getText();
     	
-	    	if (tienda.validFieldsCliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad)) {
-	    		System.out.println(inputClienteCiudad.getText());
-	    		tienda.crearCliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad);
-	    		clearCamposClientes();
-	    		notificacion("Exitoso","Guardo correctamente",AlertType.INFORMATION);
+    	//Validacampos
+    	
+	    	if (datosValidos(documento,nombre,direccion,correo,fechaNac,departamento,ciudad)==true) {
 	    		
+	    		//registrar
+	    		Cliente cliente = null;
+	    		
+	    		cliente= aplicacion.crearCliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad);
+	    		
+	    		if(cliente !=null){
+	    			clearCamposClientes();
+	    			notificacion("Notificación cliente", "Cliente registrado",
+	    					"Cliente OK", AlertType.INFORMATION);
+	    		}else{
+	    			notificacion("Notificación cliente", "Cliente no registrado",
+	    					"El cliente con docuemnto "+documento+" ya se encuentra registrado", AlertType.INFORMATION);
+	    		}
+
 			}else {
-				notificacion("Campos Vacios","llenar todos los campos",AlertType.INFORMATION); 
+				
+    			notificacion("Notificación cliente", "Cliente no registrado",
+    					"El cliente no se ha logrado registrar", AlertType.ERROR);
+				
+				
 			}
-    	}catch (Exception e) {
-    		notificacion("Campo Documento","Campo Documento obligatorio",AlertType.ERROR); 
-		}
+    
 
     	
     	
     }
 
-    private void clearCamposClientes() {
+    private boolean datosValidos(String documento, String nombre, String direccion, String correo, String fechaNac,
+			String departamento, String ciudad) {
+
+    	String mensaje = "";
+    
+    
+    	if(documento == null || documento.equals(""))
+			mensaje += "El documento es invalido \n";
+    	if(nombre == null || nombre.equals(""))
+			mensaje += "El nombre es invalido \n";
+		if(direccion == null || direccion.equals(""))
+			mensaje += "La direccion es invalida \n";
+		if(correo == null || correo.equals(""))
+			mensaje += "El correo es invalido \n";
+		if(fechaNac == null || fechaNac.equals(""))
+			mensaje += "El fechaNacimiento es invalido \n";
+		if(departamento == null || departamento.equals(""))
+			mensaje += "El departamento es invalido \n";
+		if(ciudad == null || ciudad.equals(""))
+			mensaje += "El ciudad es invalido \n";
+		if(mensaje.equals("")){
+			return true;
+		}else{
+			notificacion("Información cliente", "Datos invalidos", mensaje, AlertType.WARNING);
+			return false;
+		}
+	}
+
+	private void clearCamposClientes() {
     	
     	inputClienteDocumento.clear();
     	inputClienteNombre.clear();
@@ -149,7 +191,7 @@ public class TiendaElectronicaController {
     }
 
 	public void setAplicacion(Aplicacion aplicacion, TiendaElectronica tienda) {
-		this.tienda = tienda;
+		this.aplicacion = aplicacion;
 		
 		tableClientelistacliente.getItems().clear();
 		tableClientelistacliente.setItems(tienda.getListClientes());
@@ -162,11 +204,14 @@ public class TiendaElectronicaController {
 	 * @param contenido
 	 * @param alertType
 	 */
-	public void notificacion(String titulo, String contenido, AlertType alertType) {
-		Alert alerta = new Alert(alertType);
-		alerta.setTitle(titulo);
-		alerta.setContentText(contenido);
-		alerta.showAndWait();
+    public void notificacion(String titulo, String header, String contenido, AlertType alertType) {
+
+    	Alert alert = new Alert(alertType);
+    	alert.setTitle(titulo);
+    	alert.setHeaderText(header);
+    	alert.setContentText(contenido);
+    	alert.showAndWait();
 	}
+
 
 }

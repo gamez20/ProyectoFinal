@@ -10,7 +10,7 @@ public class Persona {
 	
 	// Variables de Persona
 	
-	private int id;
+	private String id;
 	private String nombre;
 	private String direccion;
 	private String fechaNacimiento;
@@ -25,7 +25,7 @@ public class Persona {
 	 * @param fechaNacimiento
 	 * @param correo
 	 */
-	public Persona (int id, String nombre,String direccion,String fechaNacimiento,String correo){
+	public Persona (String id, String nombre,String direccion,String fechaNacimiento,String correo){
 		
 		this.id = id;
 		this.nombre = nombre;
@@ -36,11 +36,11 @@ public class Persona {
 
 	//Getter Setter
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -83,13 +83,33 @@ public class TiendaElectronica {
 		return valid;
 	}
 
-	public void crearCliente(int documento, String nombre, String direccion, String correo, String fechaNac,
+	public Cliente crearCliente(String documento, String nombre, String direccion, String correo, String fechaNac,
 			String departamento, String ciudad) {
 		
-		Cliente  cliente = new Cliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad);
-		listClientes.add(cliente);
+		Cliente cliente= null;
+		
+		//validar si el cliente exite con ese documento 
+		cliente = obtenerCliente(documento);
+		
+		if(cliente == null ){
+			 cliente = new Cliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad);
+			 getListClientes().add(cliente);
+		}
 		
 		
+		return cliente;
+		
+	}
+
+	private Cliente obtenerCliente(String documento) {
+		
+		for (Cliente cliente : listClientes) {
+			if(cliente.getId().equals(documento)){
+				return cliente;
+			}
+		}
+		
+		return null;
 	}
 	
 }
