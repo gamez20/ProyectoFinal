@@ -112,7 +112,7 @@ public class TiendaElectronica {
 		
 	}
 
-	private Cliente obtenerCliente(String documento) {
+	public Cliente obtenerCliente(String documento) {
 		
 		for (Cliente cliente : listClientes) {
 			if(cliente.getId().equals(documento)){
@@ -197,6 +197,19 @@ public class TiendaElectronica {
 			}
 		}
 
+		return false;
+	}
+
+	public boolean setVenta(Sede sede, Cliente cliente, TipoTarjeta tipoT, String numT, String cvv, String fechaVenci,
+			String total, Producto producto) {
+		
+		cliente.setTarjeta(new Tarjeta(numT, tipoT, cvv, fechaVenci));
+		
+		for (int i = 0; i < listSedes.size(); i++) {
+			if (listSedes.get(i).getId() == sede.getId()) {
+				listSedes.get(i).setVenta(cliente,producto,total);
+			}
+		}
 		return false;
 	}
 	

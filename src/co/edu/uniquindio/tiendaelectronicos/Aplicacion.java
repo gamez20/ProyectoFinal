@@ -6,9 +6,11 @@ import co.edu.uniquindio.tiendaelectronicos.controller.TiendaElectronicaControll
 import co.edu.uniquindio.tiendaelectronicos.model.Administrador;
 import co.edu.uniquindio.tiendaelectronicos.model.CategoriaProducto;
 import co.edu.uniquindio.tiendaelectronicos.model.Cliente;
+import co.edu.uniquindio.tiendaelectronicos.model.Persona;
 import co.edu.uniquindio.tiendaelectronicos.model.Producto;
 import co.edu.uniquindio.tiendaelectronicos.model.Sede;
 import co.edu.uniquindio.tiendaelectronicos.model.TiendaElectronica;
+import co.edu.uniquindio.tiendaelectronicos.model.TipoTarjeta;
 import co.edu.uniquindio.tiendaelectronicos.test.TestData;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -99,8 +101,24 @@ public class Aplicacion extends Application {
 
 	}
 
-	public ObservableList<Sede> obtenerSedes() {
+	public ObservableList<Sede> getSedes() {
 		
 		return miTienda.getListSedes();
+	}
+
+	public ObservableList<Cliente> getClientes() {
+		// TODO Auto-generated method stub
+		return miTienda.getListClientes();
+	}
+
+	public Cliente getCliente(String id) {
+		// TODO Auto-generated method stub
+		return miTienda.obtenerCliente(id);
+	}
+
+	public boolean setVenta(Sede sede,Cliente cliente, TipoTarjeta tipoT, String numT, String cvv, String fechaVenci, String total,
+			Producto producto) {
+		return miTienda.setVenta(sede, cliente,tipoT,numT,cvv,fechaVenci,total,producto);
+		
 	}
 }

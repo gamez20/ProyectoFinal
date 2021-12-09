@@ -185,7 +185,6 @@
                                        </font>
                                     </Label>
                                     <Label layoutX="7.0" layoutY="236.0" text="Cliente:" />
-                                    <ComboBox id="cliente" fx:id="selectTransaccionCliente" layoutX="60.0" layoutY="232.0" prefHeight="26.0" prefWidth="240.0" promptText="Seleccione el cliente" />
                                     <Label layoutX="313.0" layoutY="236.0" text="Tipo de tarjeta:" />
                                     <ComboBox id="tipoTarjeta" fx:id="selectTransaccionTarjeta" layoutX="413.0" layoutY="230.0" prefHeight="34.0" prefWidth="237.0" promptText="Seleccione el tipo de tarjeta" />
                                     <Label layoutX="6.0" layoutY="278.0" text="N° de tarjeta:" />
@@ -203,17 +202,17 @@
                                           </Label>
                                           <TableView fx:id="tableTransaccionlistaVentas" layoutX="4.0" layoutY="34.0" prefHeight="117.0" prefWidth="655.0">
                                             <columns>
-                                              <TableColumn id="clienteTableTransaccion" prefWidth="130.0" text="Cliente" />
-                                              <TableColumn id="productoTableTransaccion" prefWidth="92.0" text="Producto" />
-                                                <TableColumn id="tipoTarjetaTableTransaccion" prefWidth="107.0" text="Total" />
-                                                <TableColumn id="numeroTableTransaccion" prefWidth="104.0" text="Tipo tarjeta" />
-                                                <TableColumn id="fechaVencimientoTableTransaccion" prefWidth="144.0" text="N° tarjeta" />
+                                              <TableColumn id="clienteTableTransaccion" fx:id="columTransaccionVentasCliente" prefWidth="130.0" text="Cliente" />
+                                              <TableColumn id="productoTableTransaccion" fx:id="columTransaccionVentasProducto" prefWidth="92.0" text="Producto" />
+                                                <TableColumn id="tipoTarjetaTableTransaccion" fx:id="columTransaccionVentasTotal" prefWidth="107.0" text="Total" />
+                                                <TableColumn id="numeroTableTransaccion" fx:id="columTransaccionVentasTipoTarjeta" prefWidth="104.0" text="Tipo tarjeta" />
+                                                <TableColumn id="fechaVencimientoTableTransaccion" fx:id="columTransaccionVentasNTarjeta" prefWidth="144.0" text="N° tarjeta" />
                                                 <TableColumn id="cvvTableTransaccion" prefWidth="77.0" text="Sede" />
                                             </columns>
                                           </TableView>
                                        </children>
                                     </AnchorPane>
-                                    <Button id="crearTransaccion" fx:id="btnTransaccionCompra" layoutX="305.0" layoutY="366.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Realizar venta" />
+                                    <Button id="crearTransaccion" fx:id="btnTransaccionCompra" layoutX="305.0" layoutY="366.0" mnemonicParsing="false" onAction="#creaVenta" prefHeight="25.0" prefWidth="117.0" text="Realizar venta" />
                                     <AnchorPane layoutX="6.0" layoutY="7.0" minHeight="0.0" minWidth="0.0" prefHeight="189.0" prefWidth="670.0">
                                        <children>
                                           <Label layoutX="7.0" text="Informacion de Sede">
@@ -222,14 +221,14 @@
                                              </font>
                                           </Label>
                                           <Label layoutX="7.0" layoutY="35.0" text="Sede: " />
-                                          <ComboBox id="categoriaProducto" fx:id="selectTransaccionSede" layoutX="47.0" layoutY="33.0" prefHeight="26.0" prefWidth="276.0" promptText="Seleccione la sede" />
-                                          <TableView id="descripcionTableProducto" fx:id="tableTransaccionlistaProducto1" layoutY="73.0" prefHeight="117.0" prefWidth="660.0">
+                                          <ComboBox id="categoriaProducto" fx:id="selectTransaccionSede" layoutX="47.0" layoutY="33.0" onAction="#obtnerSede" prefHeight="26.0" prefWidth="276.0" promptText="Seleccione la sede" />
+                                          <TableView id="descripcionTableProducto" fx:id="tableTransaccionlistaProducto" layoutY="73.0" prefHeight="117.0" prefWidth="660.0">
                                              <columns>
-                                                <TableColumn id="nombreTableProducto" fx:id="columProductoNombre1" prefWidth="166.0" text="Nombre" />
-                                                <TableColumn id="precioTableProducto" fx:id="columProductoPrecio1" prefWidth="113.0" text="Precio" />
-                                                <TableColumn id="categoriaTableProducto" fx:id="columProductoCategoria1" prefWidth="133.0" text="Categoria" />
-                                                <TableColumn id="disponibilidadTableProducto" fx:id="columProductoSede1" prefWidth="130.0" text="Sede" />
-                                                <TableColumn fx:id="columProductoStock1" prefWidth="128.0" text="Stock" />
+                                                <TableColumn id="nombreTableProducto" fx:id="columTransaccionProductoNombre" prefWidth="166.0" text="Nombre" />
+                                                <TableColumn id="precioTableProducto" fx:id="columTransaccionProductoPrecio" prefWidth="113.0" text="Precio" />
+                                                <TableColumn id="categoriaTableProducto" fx:id="columTransaccionProductoCategoria" prefWidth="133.0" text="Categoria" />
+                                                <TableColumn id="disponibilidadTableProducto" fx:id="columTransaccionProductoSede" prefWidth="130.0" text="Sede" />
+                                                <TableColumn fx:id="columTransaccionProductoStock" prefWidth="128.0" text="Stock" />
                                              </columns>
                                           </TableView>
                                        </children>
@@ -253,6 +252,7 @@
                                           <Font name="System Bold" size="15.0" />
                                        </font>
                                     </Label>
+                                    <TextField id="numeroTarjeta" fx:id="inputTransaccionClienteId" layoutX="70.0" layoutY="232.0" prefHeight="31.0" prefWidth="210.0" />
                                  </children>
                               </AnchorPane>
                            </items>

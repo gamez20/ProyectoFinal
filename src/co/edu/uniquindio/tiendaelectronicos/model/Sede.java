@@ -58,5 +58,13 @@ public class Sede {
 	public void setListCompras(ObservableList<Venta> listCompras) {
 		this.listCompras = listCompras;
 	}
+
+	public void setVenta(Cliente cliente, Producto producto, String total) {
+		Venta venta = new Venta(cliente,this);
+		DetalleVenta detalle = new DetalleVenta(producto);
+		venta.setDetalleVenta(detalle);
+		listCompras.add(venta);
+		
+	}
 	
 }

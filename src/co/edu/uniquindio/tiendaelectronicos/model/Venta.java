@@ -6,16 +6,52 @@ public class Venta {
 
 	private Cliente cliente;
 	private Sede sede;
+	private String sedeNombre;
+	private String nombreProducto;
+	private TipoTarjeta tipoTarjeta;
 	private ArrayList<DetalleVenta> listDetalleVenta = new ArrayList<DetalleVenta>();
 	private double total;
 	
 	public Venta(Cliente cliente, Sede sede) {
 		this.cliente = cliente;
 		this.sede = sede;
+		this.sedeNombre = this.sede.getNombre();
+		this.tipoTarjeta = cliente.getTarjeta().getTipoTarjeta();
 	}
 	
 	public void setDetalleVenta(DetalleVenta detalleVenta){
 		this.listDetalleVenta.add(detalleVenta);
+		setTotal();
+	}
+
+	
+	
+	public String getNombreProducto() {
+		return nombreProducto;
+	}
+
+	public void setNombreProducto(String nombreProducto) {
+		this.nombreProducto = nombreProducto;
+	}
+
+	public TipoTarjeta getTipoTarjeta() {
+		return tipoTarjeta;
+	}
+
+	public void setTipoTarjeta(TipoTarjeta tipoTarjeta) {
+		this.tipoTarjeta = tipoTarjeta;
+	}
+
+	public String getSedeNombre() {
+		return sedeNombre;
+	}
+
+	public void setSedeNombre(String sedeNombre) {
+		this.sedeNombre = sedeNombre;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 	public Cliente getCliente() {

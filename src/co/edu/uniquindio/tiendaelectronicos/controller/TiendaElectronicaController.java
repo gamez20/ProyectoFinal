@@ -1,16 +1,21 @@
 package co.edu.uniquindio.tiendaelectronicos.controller;
 
+import java.awt.event.KeyEvent;
 import java.util.Optional;
 
 import co.edu.uniquindio.tiendaelectronicos.Aplicacion;
 import co.edu.uniquindio.tiendaelectronicos.model.CategoriaProducto;
 import co.edu.uniquindio.tiendaelectronicos.model.Cliente;
+import co.edu.uniquindio.tiendaelectronicos.model.Persona;
 import co.edu.uniquindio.tiendaelectronicos.model.Producto;
 import co.edu.uniquindio.tiendaelectronicos.model.Sede;
 import co.edu.uniquindio.tiendaelectronicos.model.TiendaElectronica;
+import co.edu.uniquindio.tiendaelectronicos.model.TipoTarjeta;
+import co.edu.uniquindio.tiendaelectronicos.model.Venta;
 //import co.edu.uniquindio.tiendaelectronicos.test.ListaClienteData;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -29,7 +34,9 @@ public class TiendaElectronicaController {
 	private Aplicacion aplicacion;
 	private Cliente cliente;
 	private Producto producto;
-	
+	private ObservableList<Cliente> clientes;
+	private ObservableList<Sede> sedes;
+	private Sede sede;
 	// Client
     @FXML
     private TableView<Cliente> tableClientelistacliente;
@@ -134,7 +141,7 @@ public class TiendaElectronicaController {
     private TextField inputTransaccionCvv;
 
     @FXML
-    private TableView<?> tableTransaccionlistaProducto;
+    private TableView<Producto> tableTransaccionlistaProducto;
 
     @FXML
     private TextField inputTransaccionCodigoProducto;
@@ -146,7 +153,7 @@ public class TiendaElectronicaController {
     private TextField inputTransaccionFechaTarjeta;
     
     @FXML
-    private TableView<?> tableTransaccionlistaVentas;
+    private TableView<Venta> tableTransaccionlistaVentas;
     
     @FXML
     private Button btnTransaccionCompra;
@@ -155,20 +162,55 @@ public class TiendaElectronicaController {
     private Label labelTransaccionTotal;
 
     @FXML
-    private ComboBox<Sede> selectTransaccionSede;
+    private ComboBox<String> selectTransaccionSede;
     
     @FXML
     private TextField inputTransaccionNumTarjeta;
-
-    @FXML
-    private ComboBox<?> selectTransaccionCliente;
-
-    @FXML
-    private ComboBox<?> selectTransaccionTarjeta;
-
     
     @FXML
+    private TextField inputTransaccionClienteId;
+
+    @FXML
+    private ComboBox<TipoTarjeta> selectTransaccionTarjeta;
+    
+    @FXML
+    private TableColumn<Producto, Double> columTransaccionProductoPrecio;
+    
+    @FXML
+    private TableColumn<Producto, String> columTransaccionProductoNombre;
+   
+    @FXML
+    private TableColumn<Producto, String> columTransaccionProductoSede;
+   
+    @FXML
+    private TableColumn<Producto, Integer> columTransaccionProductoStock;
+    
+    @FXML
+    private TableColumn<Producto, CategoriaProducto> columTransaccionProductoCategoria;
+
+    @FXML
+    private TableColumn<Venta, Double> columTransaccionVentasTotal;
+   
+    @FXML
+    private TableColumn<Venta, Cliente> columTransaccionVentasCliente;
+
+    @FXML
+    private TableColumn<Venta, Cliente> columTransaccionVentasTipoTarjeta;
+   
+    @FXML
+    private TableColumn<Venta, Cliente> columTransaccionVentasNTarjeta;
+
+    @FXML
+    private TableColumn<Venta, String> columTransaccionVentasSede;
+    
+    @FXML
+    private TableColumn<Venta, Producto> columTransaccionVentasProducto;
+
+    @FXML
     void initialize() {
+    	//this.clientes = aplicacion.getClientes();
+    	//this.sedes 	  = aplicacion.getSedes();
+    	
     	columNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
     	columDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
     	columCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
@@ -183,6 +225,7 @@ public class TiendaElectronicaController {
     		
     	});
     	
+    	
     	inicializarDatosProducto();
     	inicializarDatosTransaccion();
     }
@@ -190,14 +233,15 @@ public class TiendaElectronicaController {
 	
 
 	private void showInfoClient(Cliente cliente) {
-		
-    	inputClienteDocumento.setText(String.valueOf(cliente.getId()));
-    	inputClienteNombre.setText(cliente.getNombre());
-    	inputClienteDireccion.setText(cliente.getDireccion());
-    	inputClienteEmail.setText(cliente.getCorreo());
-    	inputClienteFechaNac.setText(cliente.getFechaNacimiento());
-    	inputClienteDepartamento.setText(cliente.getDepartamento());
-    	inputClienteCiudad.setText(cliente.getCiudad());
+		if (cliente != null) {
+			inputClienteDocumento.setText(String.valueOf(cliente.getId()));
+	    	inputClienteNombre.setText(cliente.getNombre());
+	    	inputClienteDireccion.setText(cliente.getDireccion());
+	    	inputClienteEmail.setText(cliente.getCorreo());
+	    	inputClienteFechaNac.setText(cliente.getFechaNacimiento());
+	    	inputClienteDepartamento.setText(cliente.getDepartamento());
+	    	inputClienteCiudad.setText(cliente.getCiudad());
+		}
 	}
 
 	@FXML
@@ -378,6 +422,11 @@ public class TiendaElectronicaController {
 		//Llenar tabal productos
 		tableProductolistaProducto.getItems().clear();
 		tableProductolistaProducto.setItems(tienda.getListProductos());
+		
+		//Transaccion
+		tableTransaccionlistaProducto.getItems().clear();
+		tableTransaccionlistaVentas.getItems().clear();
+		
 	}
 	
 	//Alertas
@@ -424,14 +473,6 @@ public class TiendaElectronicaController {
     		
     	});
     
-	}
-    
-    private void inicializarDatosTransaccion() {
-    	/*if (aplicacion.obtenerSedes().size() > 0) {
-    		selectTransaccionSede.setItems(aplicacion.obtenerSedes());
-    		
-		}*/
-		
 	}
     
     private void showInfoProducto(Producto producto) {
@@ -557,9 +598,123 @@ public class TiendaElectronicaController {
     
   //-------------------------------------------- Action btn Transaccion ----------------------------------------------------
     
-    @FXML
-    void creaVenta(ActionEvent event) {
+    private void inicializarDatosTransaccion() {
+    	//System.out.println(aplicacion.obtenerSedes().size());
+    	selectTransaccionSede.getItems().addAll("Armenia","Circasia", "Calarca");
+    	
+		selectTransaccionTarjeta.getItems().addAll(TipoTarjeta.CREDITO,TipoTarjeta.DEBITO);
+		
+		columTransaccionVentasCliente.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 
+		tableTransaccionlistaProducto.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection) -> {
+    		
+    		producto = newSelection;
+    		
+    		setInfoProducto(producto);
+    		
+    	});
+		
+		inputTransaccionCantidadProducto.textProperty().addListener((observable, oldValue, newValue) -> {
+		    sumarValor(newValue);
+		});
+		
+	}
+    
+    @FXML
+    void obtnerSede(ActionEvent event) {
+    	System.out.println(selectTransaccionSede.getValue());
+    	this.sedes = aplicacion.getSedes();
+    	
+    	for (int i = 0; i < sedes.size(); i++) {
+			if (sedes.get(i).getNombre().equalsIgnoreCase(selectTransaccionSede.getValue())) {
+				inicializarTablaTransaccionProductos(sedes.get(i).getListProductos());
+				
+				inicializarTablaTransaccionVentas(sedes.get(i).getListCompras());
+				this.sede = sedes.get(i); 
+			}
+		}
+    	
+    }
+    
+    private void inicializarTablaTransaccionProductos(ObservableList<Producto> listProductos) {
+    	
+    	try {
+    		tableTransaccionlistaProducto.setItems(listProductos);
+    		
+        	columTransaccionProductoNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+    		columTransaccionProductoPrecio.setCellValueFactory(new PropertyValueFactory<>("valor"));
+    		columTransaccionProductoCategoria.setCellValueFactory(new PropertyValueFactory<>("categoriaProducto"));
+    		columTransaccionProductoSede.setCellValueFactory(new PropertyValueFactory<>("sede"));
+    		columTransaccionProductoStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        	
+        	
+		} catch (NullPointerException e) {}
+    	
+	}
+    
+    private void inicializarTablaTransaccionVentas(ObservableList<Venta> listVentas){
+    	try {
+    		tableTransaccionlistaVentas.setItems(listVentas);
+        	
+        	columTransaccionVentasCliente.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        	columTransaccionVentasProducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        	columTransaccionVentasTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+        	columTransaccionVentasTipoTarjeta.setCellValueFactory(new PropertyValueFactory<>("tarjeta"));
+        	columTransaccionVentasSede.setCellValueFactory(new PropertyValueFactory<>("sedeNombre"));
+        	
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+		}
+    	
+    }
+
+	private void setInfoProducto(Producto producto2) {
+		
+		this.producto = producto2;
+		this.inputTransaccionCodigoProducto.setText(producto2.getCodigo() + "-" + producto2.getNombre());
+		double total = 0;
+		if (inputTransaccionCantidadProducto.getText().equals("")) {
+			total = producto2.getValor();
+			
+		}else{
+			total = producto2.getValor() * Integer.parseInt(inputTransaccionCantidadProducto.getText());
+		}
+		
+		this.labelTransaccionTotal.setText(String.valueOf(total));
+	}
+
+
+
+	public void sumarValor(String newValue) {
+		double total = 0; 
+		
+		if (!newValue.equals("")) {
+			total = producto.getValor() * Integer.parseInt(newValue);
+			this.labelTransaccionTotal.setText(String.valueOf(total));
+	    }else{
+			this.labelTransaccionTotal.setText(String.valueOf(producto.getValor()));
+	    }
+	}
+		
+
+	@FXML
+    void creaVenta(ActionEvent event) {
+		
+		if (producto != null) {
+			Cliente cliente = aplicacion.getCliente(inputTransaccionClienteId.getText());
+			
+			if (cliente != null) {
+				TipoTarjeta tipoT = selectTransaccionTarjeta.getValue();
+				String numT = inputTransaccionNumTarjeta.getText();
+				String cvv = inputTransaccionCvv.getText();
+				String fechaVenci = inputTransaccionFechaTarjeta.getText();
+				String total = labelTransaccionTotal.getText();
+				
+				aplicacion.setVenta(this.sede,cliente,tipoT,numT,cvv,fechaVenci,total, this.producto);
+			}else {
+				notificacion("Transaccion", "AlertaTransaccion", "No existe este usuario", AlertType.WARNING);
+			}
+		}
     }
     
     private boolean mostrarMensajeConfirmacion(String mensaje) {
