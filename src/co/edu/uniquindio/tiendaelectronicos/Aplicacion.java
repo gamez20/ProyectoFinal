@@ -32,7 +32,7 @@ public class Aplicacion extends Application {
 			AnchorPane rootLayout = (AnchorPane)loader.load();
 			
 			TiendaElectronicaController tiendaElectronica = loader.getController();
-			tiendaElectronica.setAplicacion(this);
+			tiendaElectronica.setAplicacion(this, miTienda);
 			
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);

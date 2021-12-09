@@ -7,10 +7,14 @@ public class Venta {
 	private Cliente cliente;
 	private Sede sede;
 	private ArrayList<DetalleVenta> listDetalleVenta = new ArrayList<DetalleVenta>();
+	private double total;
 	
-	public Venta(Cliente cliente, Sede sede, DetalleVenta detalleVenta) {
+	public Venta(Cliente cliente, Sede sede) {
 		this.cliente = cliente;
 		this.sede = sede;
+	}
+	
+	public void setDetalleVenta(DetalleVenta detalleVenta){
 		this.listDetalleVenta.add(detalleVenta);
 	}
 
@@ -37,5 +41,21 @@ public class Venta {
 	public void setListDetalleVenta(ArrayList<DetalleVenta> listDetalleVenta) {
 		this.listDetalleVenta = listDetalleVenta;
 	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal() {
+		double total = 0;
+		
+		for (int i = 0; i < listDetalleVenta.size(); i++) {
+			total += listDetalleVenta.get(i).getValor();
+		}
+		
+		this.total = total;
+	}
+	
+	
 		
 }

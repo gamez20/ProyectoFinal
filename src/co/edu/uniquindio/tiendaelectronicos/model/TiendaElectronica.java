@@ -1,62 +1,65 @@
 package co.edu.uniquindio.tiendaelectronicos.model;
 
-import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class TiendaElectronica {
 
-	private ArrayList<Cliente> listClientes ;
-	private ArrayList<Producto> listProductos;
-	private ArrayList<Sede> listSedes;
-	private ArrayList<Ciudad> listCiudades;
-	private ArrayList<Administrador> listAdministrador;
+	private ObservableList<Cliente> listClientes ;
+	private ObservableList<Producto> listProductos;
+	private ObservableList<Sede> listSedes;
+	private ObservableList<Ciudad> listCiudades;
+	private ObservableList<Administrador> listAdministrador;
 	private Administrador administradorNacional;
+	
 	
 	public TiendaElectronica(Administrador administradorNacional) {
 		this.administradorNacional = administradorNacional;
-		listClientes = new ArrayList<Cliente>();
-		listProductos = new ArrayList<Producto>();
-		listSedes = new ArrayList<Sede>();
-		listCiudades = new ArrayList<Ciudad>();
-		listAdministrador = new ArrayList<Administrador>();
+		listClientes = FXCollections.observableArrayList();
+		listProductos = FXCollections.observableArrayList();
+		listSedes = FXCollections.observableArrayList();
+		listCiudades = FXCollections.observableArrayList();
+		listAdministrador = FXCollections.observableArrayList();
 	}
 	
-	public ArrayList<Cliente> getListClientes() {
+	public ObservableList<Cliente> getListClientes() {
 		return listClientes;
 	}
 
-	public void setListClientes(ArrayList<Cliente> listClientes) {
+	public void setListClientes(ObservableList<Cliente> listClientes) {
 		this.listClientes = listClientes;
 	}
 
-	public ArrayList<Producto> getListProductos() {
+	public ObservableList<Producto> getListProductos() {
 		return listProductos;
 	}
 
-	public void setListProductos(ArrayList<Producto> listProductos) {
+	public void setListProductos(ObservableList<Producto> listProductos) {
 		this.listProductos = listProductos;
 	}
 
-	public ArrayList<Sede> getListSedes() {
+	public ObservableList<Sede> getListSedes() {
 		return listSedes;
 	}
 
-	public void setListSedes(ArrayList<Sede> listSedes) {
+	public void setListSedes(ObservableList<Sede> listSedes) {
 		this.listSedes = listSedes;
 	}
 
-	public ArrayList<Ciudad> getListCiudades() {
+	public ObservableList<Ciudad> getListCiudades() {
 		return listCiudades;
 	}
 
-	public void setListCiudades(ArrayList<Ciudad> listCiudades) {
+	public void setListCiudades(ObservableList<Ciudad> listCiudades) {
 		this.listCiudades = listCiudades;
 	}
 
-	public ArrayList<Administrador> getListAdministrador() {
+	public ObservableList<Administrador> getListAdministrador() {
 		return listAdministrador;
 	}
 
-	public void setListAdministrador(ArrayList<Administrador> listAdministrador) {
+	public void setListAdministrador(ObservableList<Administrador> listAdministrador) {
 		this.listAdministrador = listAdministrador;
 	}
 
@@ -66,6 +69,26 @@ public class TiendaElectronica {
 
 	public void setAdministradorNacional(Administrador administradorNacional) {
 		this.administradorNacional = administradorNacional;
+	}
+
+	public boolean validFieldsCliente(int documento, String nombre, String direccion, String correo, String fechaNac,
+			String departamento, String ciudad) {
+		
+		boolean valid = true;
+		
+		if (documento == 0 || nombre == null || direccion == null || correo == null || fechaNac == null || departamento == null || ciudad == null) {
+			valid = false;
+		}
+		
+		return valid;
+	}
+
+	public void crearCliente(int documento, String nombre, String direccion, String correo, String fechaNac,
+			String departamento, String ciudad) {
+		
+		Cliente  cliente = new Cliente(documento,nombre,direccion,correo,fechaNac,departamento,ciudad);
+		
+		listClientes.add(cliente);
 	}
 	
 }

@@ -57,7 +57,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Button id="eliminarCliente" fx:id="btnClienteEliminar" layoutX="288.0" layoutY="244.0" mnemonicParsing="false" onAction="#eventClienteEliiminar" prefHeight="25.0" prefWidth="84.0" text="ELIMINAR" />
+                              <Button id="eliminarCliente" fx:id="btnClienteEliminar" layoutX="288.0" layoutY="244.0" mnemonicParsing="false" onAction="#eventClienteEliminar" prefHeight="25.0" prefWidth="84.0" text="ELIMINAR" />
                            </children></AnchorPane>
                     </items>
                   </SplitPane>

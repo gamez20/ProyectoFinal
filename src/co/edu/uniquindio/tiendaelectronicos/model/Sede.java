@@ -2,18 +2,22 @@ package co.edu.uniquindio.tiendaelectronicos.model;
 
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class Sede {
 
 	private String nombre;
 	private int id;
 	private Administrador administrador;
-	private ArrayList<Producto> listProductos;
+	private ObservableList<Producto> listProductos;
+	private ObservableList<Venta> listCompras;
 	
 	public Sede(String nombre, int id, Administrador administrador) {
 		this.nombre = nombre;
 		this.id = id;
 		this.administrador = administrador;
-		this.listProductos = new ArrayList<Producto>();
+		this.listProductos = FXCollections.observableArrayList();
 	}
 
 	public String getNombre() {
@@ -40,13 +44,20 @@ public class Sede {
 		this.administrador = administrador;
 	}
 
-	public ArrayList<Producto> getListProductos() {
+	public ObservableList<Producto> getListProductos() {
 		return listProductos;
 	}
 
-	public void setListProductos(ArrayList<Producto> listProductos) {
+	public void setListProductos(ObservableList<Producto> listProductos) {
 		this.listProductos = listProductos;
 	}
+
+	public ObservableList<Venta> getListCompras() {
+		return listCompras;
+	}
 	
+	public void setListCompras(ObservableList<Venta> listCompras) {
+		this.listCompras = listCompras;
+	}
 	
 }

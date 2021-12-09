@@ -17,5 +17,8 @@ public class DetalleVenta {
 		this.producto = producto;
 	}
 	
+	public double getValor() {
+		return producto.getValor();
+	}
 	
 }
